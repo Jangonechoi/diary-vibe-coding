@@ -1,0 +1,177 @@
+/* Wrapper - 640px * 560px */
+.wrapper {
+  width: 640px;
+  height: 560px;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 24px;
+  overflow: hidden;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+/* Header */
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 24px;
+}
+
+.headerTitle {
+  font-family: var(--font-korean);
+  font-size: 24px;
+  font-weight: var(--font-weight-bold);
+  color: #000000;
+  margin: 0;
+  line-height: 24px;
+  letter-spacing: -0.24px;
+}
+
+/* Gap */
+.gap {
+  width: 100%;
+  height: 24px;
+}
+
+.gapSmall {
+  width: 100%;
+  height: 16px;
+}
+
+/* Emotion Box */
+.emotionBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+
+.emotionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.emotionTitle {
+  font-family: var(--font-korean);
+  font-size: 20px;
+  font-weight: var(--font-weight-semibold);
+  color: #000000;
+  margin: 0;
+  line-height: 24px;
+  letter-spacing: -0.2px;
+}
+
+.emotionOptions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.emotionOption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.emotionRadio {
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.emotionLabel {
+  font-family: var(--font-korean);
+  font-size: 18px;
+  font-weight: var(--font-weight-medium);
+  color: #333333;
+  line-height: 20px;
+  letter-spacing: -0.18px;
+}
+
+/* Input Title */
+.inputTitle {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.titleInput {
+  width: 100%;
+}
+
+/* Input Content */
+.inputContent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+
+.inputContentContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contentLabel {
+  font-family: var(--font-korean);
+  font-size: 14px;
+  font-weight: var(--font-weight-medium);
+  color: #333333;
+  line-height: 20px;
+  letter-spacing: -0.14px;
+}
+
+.contentTextarea {
+  width: 100%;
+  height: 128px;
+  padding: 16px;
+  border: 1px solid #d4d3d3;
+  border-radius: 8px;
+  background-color: #ffffff;
+  font-family: var(--font-korean);
+  font-size: 16px;
+  font-weight: var(--font-weight-medium);
+  color: #000000;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+  resize: none;
+  box-sizing: border-box;
+}
+
+.contentTextarea::placeholder {
+  color: #ABABAB;
+}
+
+.contentTextarea:focus {
+  outline: none;
+  border-color: var(--button-primary-main);
+}
+
+/* Footer */
+.footer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.footerButtons {
+  display: flex;
+  gap: 16px;
+}
+
+.closeButton {
+  width: 104px;
+  height: 48px;
+}
+
+.submitButton {
+  width: 104px;
+  height: 48px;
+}

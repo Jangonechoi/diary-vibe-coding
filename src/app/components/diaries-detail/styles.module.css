@@ -1,0 +1,225 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1168px;
+  margin: 0 auto;
+  padding: 16px 0;
+}
+
+/* Detail Title 영역 */
+.detailTitle {
+  height: 84px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background);
+  border-radius: 8px;
+  margin-bottom: 24px;
+  padding: 0;
+}
+
+.titleSection {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #000000;
+}
+
+.title {
+  color: var(--foreground);
+  margin: 0;
+}
+
+.emotionDateSection {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.emotionSection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.emotionIcon {
+  width: 32px;
+  height: 32px;
+}
+
+.emotionText {
+  color: var(--red60);
+}
+
+.dateSection {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dateText {
+  color: var(--gray60);
+}
+
+.dateLabel {
+  color: var(--gray60);
+}
+
+/* Detail Content 영역 */
+.detailContent {
+  height: 169px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background);
+  margin-bottom: 24px;
+}
+
+.contentSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contentLabel {
+  color: var(--foreground);
+  margin: 0;
+}
+
+.contentText {
+  color: var(--foreground);
+  margin: 0;
+  flex: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
+
+.copySection {
+  height: 24px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.copyButton {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.copyText {
+  color: var(--foreground);
+}
+
+/* Detail Footer 영역 */
+.detailFooter {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  background-color: var(--background);
+  border-bottom: 1px solid #000000;
+  margin-bottom: 24px;
+}
+
+.editButton {
+  width: 51px;
+}
+
+.deleteButton {
+  width: 51px;
+}
+
+/* Retrospect 영역들 */
+.retrospectInput {
+  height: 85px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background);
+  border-radius: 16px;
+  margin-bottom: 16px;
+}
+
+.retrospectLabel {
+  color: var(--foreground);
+  margin: 0 0 12px 0;
+  font-family: var(--font-korean);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.18px;
+}
+
+.retrospectInputContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.retrospectInputField {
+  flex: 1;
+}
+
+.retrospectSubmitButton {
+  width: 51px;
+}
+
+.retrospectList {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background);
+  border-radius: 16px;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.retrospectItem {
+  display: flex;
+  align-items: center;
+  padding: 16px 16px 16px 0;
+  border-bottom: 1px solid #e4e4e4;
+  gap: 12px;
+}
+
+.retrospectItem:last-child {
+  border-bottom: none;
+}
+
+.retrospectText {
+  color: var(--foreground);
+  font-family: var(--font-korean);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+  margin: 0;
+}
+
+.retrospectDate {
+  color: #777777;
+  font-family: var(--font-korean);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+  margin: 0;
+}
+
+.placeholderText {
+  color: var(--gray60);
+  font-family: var(--font-korean);
+  font-size: 14px;
+  font-weight: var(--font-weight-regular);
+}

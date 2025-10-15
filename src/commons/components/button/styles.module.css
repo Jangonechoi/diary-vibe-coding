@@ -1,0 +1,235 @@
+/* Button Base Styles */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  font-family: var(--font-korean);
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+  outline: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--button-primary-main);
+  outline-offset: 2px;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Size Variants */
+.small {
+  height: 40px;
+  padding: 0 16px;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.14px;
+  border-radius: 6px;
+}
+
+.medium {
+  height: 48px;
+  padding: 0 20px;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+  border-radius: 8px;
+}
+
+.large {
+  height: 48px;
+  padding: 0 24px;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.18px;
+  border-radius: 8px;
+}
+
+/* Primary Variant - Light Theme */
+.primary.light {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.primary.light:hover:not(:disabled) {
+  background-color: #1c1c1c;
+}
+
+.primary.light:active:not(:disabled) {
+  background-color: #2c2c2c;
+}
+
+.primary.light:disabled {
+  background-color: #ababab;
+  color: #e5e5e5;
+}
+
+/* Primary Variant - Dark Theme */
+.primary.dark {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.primary.dark:hover:not(:disabled) {
+  background-color: #f5f5f5;
+}
+
+.primary.dark:active:not(:disabled) {
+  background-color: #e5e5e5;
+}
+
+.primary.dark:disabled {
+  background-color: #3a3a3c;
+  color: #636366;
+}
+
+/* Secondary Variant - Light Theme */
+.secondary.light {
+  background-color: #ffffff;
+  color: #1c1c1c;
+  border: 1px solid #c7c7c7;
+}
+
+.secondary.light:hover:not(:disabled) {
+  background-color: #f5f5f5;
+  border-color: #8e8e93;
+}
+
+.secondary.light:active:not(:disabled) {
+  background-color: #e5e5e5;
+}
+
+.secondary.light:disabled {
+  background-color: #f2f2f7;
+  color: #c7c7cc;
+  border-color: #d1d1d6;
+}
+
+/* Secondary Variant - Dark Theme */
+.secondary.dark {
+  background-color: #1c1c1c;
+  color: #ffffff;
+  border: 1px solid #48484a;
+}
+
+.secondary.dark:hover:not(:disabled) {
+  background-color: #2c2c2c;
+  border-color: #636366;
+}
+
+.secondary.dark:active:not(:disabled) {
+  background-color: #3a3a3c;
+}
+
+.secondary.dark:disabled {
+  background-color: #2c2c2e;
+  color: #48484a;
+  border-color: #3a3a3c;
+}
+
+/* Tertiary Variant - Light Theme */
+.tertiary.light {
+  background-color: transparent;
+  color: #000000;
+  border: 1px solid #d1d1d6;
+}
+
+.tertiary.light:hover:not(:disabled) {
+  background-color: #f5f5f5;
+  border-color: #8e8e93;
+}
+
+.tertiary.light:active:not(:disabled) {
+  background-color: #e5e5e5;
+}
+
+.tertiary.light:disabled {
+  background-color: transparent;
+  color: #c7c7cc;
+  border-color: #d1d1d6;
+}
+
+/* Tertiary Variant - Dark Theme */
+.tertiary.dark {
+  background-color: transparent;
+  color: #ffffff;
+  border: 1px solid #48484a;
+}
+
+.tertiary.dark:hover:not(:disabled) {
+  background-color: #2c2c2c;
+  border-color: #636366;
+}
+
+.tertiary.dark:active:not(:disabled) {
+  background-color: #3a3a3c;
+}
+
+.tertiary.dark:disabled {
+  background-color: transparent;
+  color: #48484a;
+  border-color: #3a3a3c;
+}
+
+/* Icon Spacing */
+.button .icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.button .icon img {
+  width: auto;
+  height: auto;
+  max-width: none;
+}
+
+.button .icon:first-child:not(:last-child) {
+  margin-right: 8px;
+}
+
+.button .icon:last-child:not(:first-child) {
+  margin-left: 8px;
+}
+
+/* Full Width */
+.fullWidth {
+  width: 100%;
+}
+
+/* Loading State */
+.loading {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  margin-left: -8px;
+  margin-top: -8px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  border-right-color: transparent;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

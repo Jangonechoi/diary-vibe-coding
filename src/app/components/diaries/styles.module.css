@@ -1,0 +1,173 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.gap32 {
+  width: 1168px;
+  height: 32px;
+}
+
+.search {
+  width: 1168px;
+  height: 48px;
+}
+
+.searchContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+.searchWrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.filterSelect {
+  width: 120px;
+}
+
+.searchInput {
+  width: 320px;
+}
+
+.writeButton {
+  display: flex;
+  width: 110px;
+}
+
+.gap42 {
+  width: 1168px;
+  height: 42px;
+}
+
+.main {
+  width: 1168px;
+  height: 936px;
+}
+
+.diaryGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 274px);
+  grid-template-rows: repeat(3, 296px);
+  gap: 24px;
+  width: 100%;
+  height: 100%;
+}
+
+.diaryCard {
+  width: 274px;
+  height: 296px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardImage {
+  position: relative;
+  width: 274px;
+  height: 208px;
+  border-radius: 16px 16px 16px 16px;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.closeIcon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  fill: #fff;
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.1));
+}
+
+.closeIcon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.closeIcon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cardContent {
+  flex: 1;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.emotionText {
+  font-family: var(--font-korean);
+  font-size: 14px;
+  font-weight: var(--font-weight-semibold);
+  line-height: 20px;
+  letter-spacing: -0.14px;
+}
+
+.dateText {
+  font-family: var(--font-korean);
+  font-size: 14px;
+  font-weight: var(--font-weight-regular);
+  line-height: 24px;
+  letter-spacing: -0.14px;
+  color: #919191;
+}
+
+.cardTitle {
+  font-family: var(--font-korean);
+  font-size: 18px;
+  font-weight: var(--font-weight-bold);
+  line-height: 24px;
+  letter-spacing: -0.18px;
+  color: #000000;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gap40 {
+  width: 1168px;
+  height: 40px;
+}
+
+.pagination {
+  width: 1168px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paginationComponent {
+  width: auto;
+}

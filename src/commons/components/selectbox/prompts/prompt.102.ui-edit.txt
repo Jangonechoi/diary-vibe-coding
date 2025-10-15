@@ -1,0 +1,48 @@
+아래의 조건을 모두 적용하여, 아래의 요구사항을 모두 구현할 것.
+구현 결과를 체크리스트로 반환할 것.
+
+==============================================
+
+조건-커서룰) 아래의 커서룰을 적용하여 작업하고, 이 작업이 끝나면 해당 rules 적용 결과를 체크리스트로 반환할 것.
+            - @01-common.mdc
+            - @02-wireframe.mdc
+            - @03-ui.mdc
+
+==============================================
+
+조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: pcnrdnq7)
+조건-피그마) 참고할 공통컴포넌트 노드ID: 3:1561
+
+조건-파일경로) 구현될 TSX 파일경로: src/commons/components/selectbox/index.tsx
+조건-파일경로) 구현될 CSS 파일경로: src/commons/components/selectbox/styles.module.css
+
+==============================================
+
+기존히스토리-참고만) MCP를 연동하여 피그마의 디자인을 그대로 소스코드로 구현할 것.
+
+기존히스토리-참고만) 다음 조건을 모두 만족하는 완전한 variant 시스템을 구현할 것.
+            - variant: 'primary' | 'secondary' | 'tertiary'
+            - size: 'small' | 'medium' | 'large'
+            - theme: 'light' | 'dark'
+
+기존히스토리-참고만) 현재 해당 컴포넌트가 피그마 디자인과 다른데, 피그마 디자인과 일치하도록 변경할 것.
+
+기존히스토리-참고만) 메뉴목록의 전체 길이는 스크롤 없이, 메뉴들이 모두 보이도록 설정할 것.
+
+기존히스토리-참고만) _dropdown_28grg_75 _primary_28grg_121 _medium_28grg_98 _light_28grg_27 _open_28grg_82의 높이가 전체 옵션 목록들을 감쌀 수 있도록 재설정 할 것.
+
+기존히스토리-참고만) 현재 _dropdown_d9b0g_75 _primary_d9b0g_121 _medium_d9b0g_98 _light_d9b0g_27 _open_d9b0g_82에 테두리가 들어가 있는데, 
+            각각의 옵션들(욥션 2,3,4, 등등...)에도 테두리가 적용되게 변경할 것.
+            -테두리 전체 높이는 내부 _option_d9b0g_404 개수에 맞게 동적으로 변경할 것.  
+
+==============================================
+
+핵심요구사항) _selectboxContainer_c6pby_46 _primary_c6pby_121 _medium_c6pby_98 _light_c6pby_27 _placeholder_c6pby_130의 크기가 실제 피그마와 다른데, 이걸 동일하게 변경할 것.
+핵심요구사항) _selectboxContainer_c6pby_46 _primary_c6pby_121 _medium_c6pby_98 _light_c6pby_27의 크기가 옵션 선택시에도 크기가 줄어들지 않게 변경할 것.
+핵심요구사항) 클릭시 나오는 메뉴목록 디자인을 아래의 피그마 노드ID와 일치하도록 수정할 것.
+                - 메뉴목록 노드ID: 3:1469
+
+
+
+
+

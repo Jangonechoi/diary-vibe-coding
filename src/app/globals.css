@@ -1,0 +1,307 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+
+  /* Font Families */
+  --font-korean: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+  --font-english: 'SUIT Variable', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+  --font-default: 'Pretendard', 'SUIT Variable', -apple-system, BlinkMacSystemFont, system-ui,
+    Roboto, sans-serif;
+
+  /* Font Weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* Button Colors - Primary */
+  --button-primary-main: #007aff;
+  --button-primary-hover: #0051d5;
+  --button-primary-active: #004cbf;
+  --button-primary-disabled: #b3d7ff;
+
+  /* Button Colors - Secondary */
+  --button-secondary-main: #5856d6;
+  --button-secondary-hover: #3634a3;
+  --button-secondary-active: #2e2c8b;
+  --button-secondary-disabled: #c7c6ea;
+
+  /* Button Colors - Tertiary */
+  --button-tertiary-main: #e5e5ea;
+  --button-tertiary-hover: #d1d1d6;
+  --button-tertiary-active: #c7c7cc;
+  --button-tertiary-disabled: #f2f2f7;
+
+  /* Button Text Colors */
+  --button-text-primary: #ffffff;
+  --button-text-secondary: #000000;
+  --button-text-disabled: #c7c7cc;
+
+  /* Border Colors */
+  --border-default: #d1d1d6;
+  --border-strong: #8e8e93;
+
+  /* Emotion Colors */
+  --red60: #ea5757;
+  --blue60: #28b4e1;
+  --gray60: #777777;
+  --yellow60: #d59029;
+  --green60: #a229ed;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+
+    /* Button Colors - Primary (Dark) */
+    --button-primary-main: #0a84ff;
+    --button-primary-hover: #409cff;
+    --button-primary-active: #5db0ff;
+    --button-primary-disabled: #1c3a5e;
+
+    /* Button Colors - Secondary (Dark) */
+    --button-secondary-main: #5e5ce6;
+    --button-secondary-hover: #7d7aff;
+    --button-secondary-active: #9493ff;
+    --button-secondary-disabled: #2c2b5e;
+
+    /* Button Colors - Tertiary (Dark) */
+    --button-tertiary-main: #3a3a3c;
+    --button-tertiary-hover: #48484a;
+    --button-tertiary-active: #636366;
+    --button-tertiary-disabled: #2c2c2e;
+
+    /* Button Text Colors (Dark) */
+    --button-text-primary: #ffffff;
+    --button-text-secondary: #ffffff;
+    --button-text-disabled: #48484a;
+
+    /* Border Colors (Dark) */
+    --border-default: #48484a;
+    --border-strong: #636366;
+
+    /* Emotion Colors (Dark) */
+    --red60: #ea5757;
+    --blue60: #28b4e1;
+    --gray60: #777777;
+    --yellow60: #d59029;
+    --green60: #a229ed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-default);
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Web Headline */
+  .typo-web-headline-headline01 {
+    font-family: var(--font-korean);
+    font-size: 48px;
+    font-weight: var(--font-weight-semibold);
+    line-height: 60px;
+  }
+
+  .typo-web-headline-headline02 {
+    font-family: var(--font-korean);
+    font-size: 36px;
+    font-weight: var(--font-weight-semibold);
+    line-height: 48px;
+  }
+
+  .typo-web-headline-headline03 {
+    font-family: var(--font-korean);
+    font-size: 28px;
+    font-weight: var(--font-weight-semibold);
+    line-height: 36px;
+  }
+
+  /* Headline */
+  .typo-headline-headline01 {
+    font-family: var(--font-korean);
+    font-size: 24px;
+    font-weight: var(--font-weight-bold);
+    line-height: 32px;
+  }
+
+  .typo-headline-headline02 {
+    font-family: var(--font-korean);
+    font-size: 22px;
+    font-weight: var(--font-weight-extrabold);
+    line-height: 30px;
+  }
+
+  .typo-headline-headline03 {
+    font-family: var(--font-korean);
+    font-size: 20px;
+    font-weight: var(--font-weight-bold);
+    line-height: 28px;
+  }
+
+  /* Title */
+  .typo-title-title01 {
+    font-family: var(--font-korean);
+    font-size: 18px;
+    font-weight: var(--font-weight-bold);
+    line-height: 24px;
+  }
+
+  .typo-title-title02 {
+    font-family: var(--font-korean);
+    font-size: 16px;
+    font-weight: var(--font-weight-bold);
+    line-height: 22px;
+  }
+
+  .typo-title-title03 {
+    font-family: var(--font-korean);
+    font-size: 14px;
+    font-weight: var(--font-weight-bold);
+    line-height: 20px;
+  }
+
+  .typo-title-subtitle01 {
+    font-family: var(--font-korean);
+    font-size: 14px;
+    font-weight: var(--font-weight-semibold);
+    line-height: 22px;
+  }
+
+  .typo-title-subtitle02 {
+    font-family: var(--font-korean);
+    font-size: 12px;
+    font-weight: var(--font-weight-semibold);
+    line-height: 18px;
+  }
+
+  /* Body */
+  .typo-body-body01-medium {
+    font-family: var(--font-korean);
+    font-size: 16px;
+    font-weight: var(--font-weight-medium);
+    line-height: 24px;
+  }
+
+  .typo-body-body02-medium {
+    font-family: var(--font-korean);
+    font-size: 14px;
+    font-weight: var(--font-weight-medium);
+    line-height: 22px;
+  }
+
+  .typo-body-body03-medium {
+    font-family: var(--font-korean);
+    font-size: 12px;
+    font-weight: var(--font-weight-medium);
+    line-height: 18px;
+  }
+
+  .typo-body-body01-regular {
+    font-family: var(--font-korean);
+    font-size: 16px;
+    font-weight: var(--font-weight-regular);
+    line-height: 22px;
+  }
+
+  .typo-body-body02-regular {
+    font-family: var(--font-korean);
+    font-size: 14px;
+    font-weight: var(--font-weight-regular);
+    line-height: 20px;
+  }
+
+  .typo-body-body03-regular {
+    font-family: var(--font-korean);
+    font-size: 12px;
+    font-weight: var(--font-weight-regular);
+    line-height: 16px;
+  }
+
+  /* Caption */
+  .typo-caption-caption01-semibold {
+    font-family: var(--font-korean);
+    font-size: 12px;
+    font-weight: var(--font-weight-semibold);
+    line-height: 14px;
+  }
+
+  .typo-caption-caption02-semibold {
+    font-family: var(--font-korean);
+    font-size: 10px;
+    font-weight: var(--font-weight-semibold);
+    line-height: 12px;
+  }
+
+  .typo-caption-caption02-medium {
+    font-family: var(--font-korean);
+    font-size: 10px;
+    font-weight: var(--font-weight-medium);
+    line-height: 12px;
+  }
+
+  .typo-caption-caption03 {
+    font-family: var(--font-korean);
+    font-size: 8px;
+    font-weight: var(--font-weight-semibold);
+    line-height: 10px;
+  }
+
+  /* Responsive Typography - Mobile 기본, Desktop은 미디어 쿼리 */
+  @media (min-width: 768px) {
+    .typo-responsive-hero {
+      font-family: var(--font-korean);
+      font-size: 48px;
+      font-weight: var(--font-weight-semibold);
+      line-height: 60px;
+    }
+
+    .typo-responsive-section {
+      font-family: var(--font-korean);
+      font-size: 36px;
+      font-weight: var(--font-weight-semibold);
+      line-height: 48px;
+    }
+
+    .typo-responsive-subsection {
+      font-family: var(--font-korean);
+      font-size: 28px;
+      font-weight: var(--font-weight-semibold);
+      line-height: 36px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .typo-responsive-hero {
+      font-family: var(--font-korean);
+      font-size: 24px;
+      font-weight: var(--font-weight-bold);
+      line-height: 32px;
+    }
+
+    .typo-responsive-section {
+      font-family: var(--font-korean);
+      font-size: 22px;
+      font-weight: var(--font-weight-extrabold);
+      line-height: 30px;
+    }
+
+    .typo-responsive-subsection {
+      font-family: var(--font-korean);
+      font-size: 20px;
+      font-weight: var(--font-weight-bold);
+      line-height: 28px;
+    }
+  }
+}

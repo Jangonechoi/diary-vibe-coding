@@ -1,0 +1,338 @@
+/* ============================================
+   Toggle Component Styles
+   ============================================ */
+
+/* Wrapper */
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wrapper.hasLabel {
+  cursor: pointer;
+}
+
+.wrapper.labelLeft {
+  flex-direction: row;
+}
+
+/* Toggle Container */
+.toggleContainer {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.toggleContainer:focus {
+  outline: none;
+}
+
+/* Input (Hidden) */
+.input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Handle (Circle) */
+.handle {
+  position: absolute;
+  background-color: #ffffff;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+  pointer-events: none;
+}
+
+/* ============================================
+   Size Variants
+   ============================================ */
+
+/* Small */
+.small {
+  width: 48px;
+  height: 28px;
+}
+
+.small .handle {
+  width: 20px;
+  height: 20px;
+  left: 4px;
+}
+
+.small.checked .handle {
+  transform: translateX(20px);
+}
+
+/* Medium (Default - Figma 기준) */
+.medium {
+  width: 58px;
+  height: 32px;
+}
+
+.medium .handle {
+  width: 24px;
+  height: 24px;
+  left: 4px;
+}
+
+.medium.checked .handle {
+  transform: translateX(26px);
+}
+
+/* Large */
+.large {
+  width: 68px;
+  height: 36px;
+}
+
+.large .handle {
+  width: 28px;
+  height: 28px;
+  left: 4px;
+}
+
+.large.checked .handle {
+  transform: translateX(32px);
+}
+
+/* ============================================
+   Variant & Theme Combinations
+   ============================================ */
+
+/* Primary - Light */
+.primary.light {
+  background-color: #e4e4e4;
+}
+
+.primary.light.checked {
+  background-color: #3ad84a;
+}
+
+.primary.light:hover:not(.disabled) {
+  background-color: #d1d1d6;
+}
+
+.primary.light.checked:hover:not(.disabled) {
+  background-color: #32c742;
+}
+
+.primary.light.disabled {
+  background-color: #f2f2f7;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Primary - Dark */
+.primary.dark {
+  background-color: #48484a;
+}
+
+.primary.dark.checked {
+  background-color: #32d74b;
+}
+
+.primary.dark:hover:not(.disabled) {
+  background-color: #636366;
+}
+
+.primary.dark.checked:hover:not(.disabled) {
+  background-color: #30d158;
+}
+
+.primary.dark.disabled {
+  background-color: #3a3a3c;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Secondary - Light */
+.secondary.light {
+  background-color: #e5e5ea;
+}
+
+.secondary.light.checked {
+  background-color: #5856d6;
+}
+
+.secondary.light:hover:not(.disabled) {
+  background-color: #d1d1d6;
+}
+
+.secondary.light.checked:hover:not(.disabled) {
+  background-color: #3634a3;
+}
+
+.secondary.light.disabled {
+  background-color: #f2f2f7;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Secondary - Dark */
+.secondary.dark {
+  background-color: #48484a;
+}
+
+.secondary.dark.checked {
+  background-color: #5e5ce6;
+}
+
+.secondary.dark:hover:not(.disabled) {
+  background-color: #636366;
+}
+
+.secondary.dark.checked:hover:not(.disabled) {
+  background-color: #7d7aff;
+}
+
+.secondary.dark.disabled {
+  background-color: #3a3a3c;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Tertiary - Light */
+.tertiary.light {
+  background-color: #f2f2f7;
+  border: 1px solid #d1d1d6;
+}
+
+.tertiary.light.checked {
+  background-color: #007aff;
+  border-color: #007aff;
+}
+
+.tertiary.light:hover:not(.disabled) {
+  background-color: #e5e5ea;
+}
+
+.tertiary.light.checked:hover:not(.disabled) {
+  background-color: #0051d5;
+  border-color: #0051d5;
+}
+
+.tertiary.light.disabled {
+  background-color: #f9f9f9;
+  border-color: #e5e5ea;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Tertiary - Dark */
+.tertiary.dark {
+  background-color: #2c2c2e;
+  border: 1px solid #48484a;
+}
+
+.tertiary.dark.checked {
+  background-color: #0a84ff;
+  border-color: #0a84ff;
+}
+
+.tertiary.dark:hover:not(.disabled) {
+  background-color: #3a3a3c;
+}
+
+.tertiary.dark.checked:hover:not(.disabled) {
+  background-color: #409cff;
+  border-color: #409cff;
+}
+
+.tertiary.dark.disabled {
+  background-color: #1c1c1e;
+  border-color: #3a3a3c;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ============================================
+   Label Styles
+   ============================================ */
+
+.label {
+  user-select: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+/* Label Size Variants */
+.label_small {
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+    sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.label_medium {
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+    sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+}
+
+.label_large {
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+    sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+/* Label Theme Variants */
+.label_light {
+  color: #000000;
+}
+
+.label_dark {
+  color: #ffffff;
+}
+
+.labelDisabled {
+  color: #8e8e93;
+  cursor: not-allowed;
+}
+
+/* ============================================
+   Focus States
+   ============================================ */
+
+.toggleContainer:focus-visible {
+  outline: 2px solid #007aff;
+  outline-offset: 2px;
+}
+
+.toggleContainer.dark:focus-visible {
+  outline-color: #0a84ff;
+}
+
+/* ============================================
+   Accessibility
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .toggleContainer,
+  .handle,
+  .label {
+    transition: none;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .toggleContainer {
+    border: 2px solid currentColor;
+  }
+
+  .handle {
+    border: 1px solid #000000;
+  }
+}
