@@ -1,0 +1,103 @@
+/* Modal Container */
+.modal {
+  position: relative;
+  width: 480px;
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Light Theme */
+.modal.light {
+  background-color: #ffffff;
+}
+
+/* Dark Theme */
+.modal.dark {
+  background-color: #1c1c1e;
+}
+
+/* Content Area */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Title */
+.title {
+  font-family: var(--font-korean);
+  font-weight: var(--font-weight-bold);
+  font-size: 24px;
+  line-height: 24px;
+  letter-spacing: -0.24px;
+  text-align: center;
+}
+
+.title.light {
+  color: #000000;
+}
+
+.title.dark {
+  color: #ffffff;
+}
+
+/* Message */
+.message {
+  font-family: var(--font-korean);
+  font-weight: var(--font-weight-medium);
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.2px;
+  text-align: center;
+}
+
+.message.light {
+  color: #333333;
+}
+
+.message.dark {
+  color: #e5e5ea;
+}
+
+/* Actions Area */
+.actions {
+  display: flex;
+  gap: 21px;
+}
+
+/* Single Action: 버튼이 1개일 때 */
+.actions.single {
+  justify-content: center;
+}
+
+/* Dual Actions: 버튼이 2개일 때 */
+.actions.dual {
+  justify-content: center;
+}
+
+/* Button Styles for Single Action */
+.buttonSingle {
+  width: 100%;
+}
+
+/* Button Styles for Dual Actions - 104px 고정 */
+.buttonDual {
+  width: 104px;
+  min-width: 104px;
+  flex-shrink: 0;
+}
+
+/* Variant Styles - info와 danger는 기본 스타일 사용, 버튼 variant로 구분 */
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .modal {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 16px;
+  }
+}
