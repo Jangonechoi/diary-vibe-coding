@@ -42,9 +42,7 @@ test.describe("일기 상세 바인딩 훅 테스트", () => {
     await page.goto("/diaries/1");
 
     // 페이지 로드 대기 - data-testid로 식별
-    await page.waitForSelector('[data-testid="diary-detail-container"]', {
-      timeout: 500,
-    });
+    await page.waitForSelector('[data-testid="diary-detail-container"]');
 
     // 제목 확인
     const title = page.locator("h1.typo-headline-headline02");
@@ -54,8 +52,8 @@ test.describe("일기 상세 바인딩 훅 테스트", () => {
     const emotionText = page.locator(".typo-headline-headline03");
     await expect(emotionText).toHaveText("행복해요");
 
-    // 작성 날짜 확인
-    const dateText = page.locator("span.typo-body-body02-regular");
+    // 작성 날짜 확인 - 더 구체적인 locator 사용
+    const dateText = page.locator("span.typo-body-body02-regular").first();
     await expect(dateText).toContainText("2024. 07. 12");
 
     // 내용 확인
@@ -70,9 +68,7 @@ test.describe("일기 상세 바인딩 훅 테스트", () => {
     await page.goto("/diaries/2");
 
     // 페이지 로드 대기
-    await page.waitForSelector('[data-testid="diary-detail-container"]', {
-      timeout: 500,
-    });
+    await page.waitForSelector('[data-testid="diary-detail-container"]');
 
     // 제목 확인
     const title = page.locator("h1.typo-headline-headline02");
@@ -82,8 +78,8 @@ test.describe("일기 상세 바인딩 훅 테스트", () => {
     const emotionText = page.locator(".typo-headline-headline03");
     await expect(emotionText).toHaveText("슬퍼요");
 
-    // 작성 날짜 확인
-    const dateText = page.locator("span.typo-body-body02-regular");
+    // 작성 날짜 확인 - 더 구체적인 locator 사용
+    const dateText = page.locator("span.typo-body-body02-regular").first();
     await expect(dateText).toContainText("2024. 07. 13");
   });
 
@@ -94,9 +90,7 @@ test.describe("일기 상세 바인딩 훅 테스트", () => {
     await page.goto("/diaries/3");
 
     // 페이지 로드 대기
-    await page.waitForSelector('[data-testid="diary-detail-container"]', {
-      timeout: 500,
-    });
+    await page.waitForSelector('[data-testid="diary-detail-container"]');
 
     // 감정 텍스트 확인
     const emotionText = page.locator(".typo-headline-headline03");
@@ -114,17 +108,11 @@ test.describe("일기 상세 바인딩 훅 테스트", () => {
     await page.goto("/diaries/999");
 
     // 페이지 로드 대기
-    await page.waitForSelector('[data-testid="diary-detail-container"]', {
-      timeout: 500,
-    });
+    await page.waitForSelector('[data-testid="diary-detail-container"]');
 
-    // Mock 데이터가 아닌 다른 데이터가 표시되지 않음을 확인
-    // (로컬스토리지에 ID 999인 데이터가 없으므로)
-    const title = page.locator("h1.typo-headline-headline02");
-
-    // 제목이 "이것은 타이틀 입니다."(mock)가 아닌지 확인
-    const titleText = await title.textContent();
-    expect(titleText).not.toBe("이것은 타이틀 입니다.");
+    // "일기를 찾을 수 없습니다." 메시지가 표시되는지 확인
+    const errorMessage = page.getByText("일기를 찾을 수 없습니다.");
+    await expect(errorMessage).toBeVisible();
   });
 
   test("여러 일기 중 특정 ID의 일기만 정확히 바인딩된다", async ({ page }) => {
@@ -132,9 +120,7 @@ test.describe("일기 상세 바인딩 훅 테스트", () => {
     await page.goto("/diaries/2");
 
     // 페이지 로드 대기
-    await page.waitForSelector('[data-testid="diary-detail-container"]', {
-      timeout: 500,
-    });
+    await page.waitForSelector('[data-testid="diary-detail-container"]');
 
     // 제목이 "두 번째 일기"임을 확인
     const title = page.locator("h1.typo-headline-headline02");

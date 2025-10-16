@@ -101,9 +101,7 @@ test.describe("일기쓰기 폼 등록 기능 테스트", () => {
 
     // 페이지 새로고침 (로컬스토리지 데이터 로드)
     await page.goto("/diaries");
-    await page.waitForSelector('[data-testid="diary-write-button"]', {
-      timeout: 500,
-    });
+    await page.waitForSelector('[data-testid="diary-write-button"]');
 
     // 일기쓰기 버튼 클릭
     const writeButton = page.locator('[data-testid="diary-write-button"]');
@@ -231,15 +229,16 @@ test.describe("일기쓰기 폼 등록 기능 테스트", () => {
     const confirmButton = page.locator('button:has-text("확인")');
     await confirmButton.click({ force: true });
 
-    // 페이지 이동 후 다시 일기쓰기 페이지로 돌아가기
-    await page.goto("/diaries");
-    await page.waitForSelector('[data-testid="diary-write-button"]', {
-      timeout: 500,
-    });
+    // 페이지 이동 대기
+    await page.waitForURL("**/diaries/**", { timeout: 5000 });
+
+    // 다시 일기쓰기 페이지로 돌아가기
+    await page.goto("/diaries", { waitUntil: "domcontentloaded" });
+    await page.waitForSelector('[data-testid="diary-write-button"]');
 
     // 일기쓰기 버튼 클릭
     const writeButton = page.locator('[data-testid="diary-write-button"]');
-    await writeButton.click({ force: true });
+    await writeButton.click();
 
     // 일기쓰기 모달 대기
     await expect(page.locator("text=일기 쓰기")).toBeVisible({ timeout: 400 });

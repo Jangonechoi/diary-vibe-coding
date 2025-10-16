@@ -50,7 +50,7 @@
 }
 
 .emotionText {
-  color: var(--red60);
+  /* 색상은 인라인 스타일로 동적으로 적용됨 */
 }
 
 .dateSection {

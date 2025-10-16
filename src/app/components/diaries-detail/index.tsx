@@ -12,24 +12,16 @@ interface DiariesDetailProps {
   diaryId?: string;
 }
 
-// Mock retrospect 데이터
-const mockRetrospects = [
-  {
-    id: "1",
-    text: "3년이 지나고 다시 보니 이때가 그립다.",
-    createdAt: "2024. 09. 24",
-  },
-  {
-    id: "2",
-    text: "3년이 지나고 다시 보니 이때가 그립다.",
-    createdAt: "2024. 09. 24",
-  },
-];
-
 const DiariesDetail: React.FC<DiariesDetailProps> = ({ diaryId }) => {
   const { diary } = useBindingDiary(diaryId);
   const [retrospectText, setRetrospectText] = useState("");
-  const [retrospects, setRetrospects] = useState(mockRetrospects);
+  const [retrospects, setRetrospects] = useState<
+    Array<{
+      id: string;
+      text: string;
+      createdAt: string;
+    }>
+  >([]);
 
   // diary가 없을 때 처리
   if (!diary) {
@@ -104,7 +96,10 @@ const DiariesDetail: React.FC<DiariesDetailProps> = ({ diaryId }) => {
               height={32}
               className={styles.emotionIcon}
             />
-            <span className={`${styles.emotionText} typo-headline-headline03`}>
+            <span
+              className={`${styles.emotionText} typo-headline-headline03`}
+              style={{ color: `var(--${emotionData.color})` }}
+            >
               {emotionData.label}
             </span>
           </div>
