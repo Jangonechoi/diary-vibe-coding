@@ -38,7 +38,6 @@ export default function DiariesNew() {
                   {...register("emotion")}
                   value={emotionKey}
                   checked={formValues.emotion === emotionKey}
-                  onChange={() => {}}
                   className={styles.emotionRadio}
                 />
                 <span className={styles.emotionLabel}>
