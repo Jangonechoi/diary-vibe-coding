@@ -1,0 +1,27 @@
+/**
+ * Modal Provider Styles
+ * 중첩 모달을 지원하는 modal-portal 스타일
+ */
+
+/* Modal Overlay - 전체 화면을 덮는 레이어 */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Backdrop - 반투명 배경 */
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: opacity 0.3s ease;
+}
+
+/* Modal Content Wrapper */
+.modalWrapper {
+  position: relative;
+  z-index: 10;
+}
