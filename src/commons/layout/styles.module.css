@@ -25,9 +25,14 @@
   text-decoration: none;
 }
 
-.gap {
+.gap24 {
   width: 1168px;
   height: 24px;
+}
+
+.gap32 {
+  width: 1168px;
+  height: 32px;
 }
 
 .banner {

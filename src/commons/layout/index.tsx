@@ -26,13 +26,13 @@ export default function Layout({ children }: LayoutProps) {
           )}
         </header>
       )}
-      {visibility.banner && <div className={styles.gap}></div>}
+      {visibility.banner && <div className={styles.gap24}></div>}
       {visibility.banner && (
         <div className={styles.banner} data-testid="layout-banner">
           <Image src="/images/banner.png" alt="배너" fill style={{ objectFit: 'cover' }} />
         </div>
       )}
-      {visibility.navigation && <div className={styles.gap}></div>}
+      {visibility.navigation && <div className={styles.gap24}></div>}
       {visibility.navigation && (
         <nav className={styles.navigation} data-testid="layout-navigation">
           <Link
@@ -51,7 +51,7 @@ export default function Layout({ children }: LayoutProps) {
           </Link>
         </nav>
       )}
-      <div className={styles.gap}></div>
+      <div className={styles.gap32}></div>
       <main className={styles.children}>{children}</main>
       {visibility.footer && (
         <footer className={styles.footer} data-testid="layout-footer">

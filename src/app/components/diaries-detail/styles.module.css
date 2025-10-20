@@ -129,15 +129,26 @@
   gap: 16px;
   background-color: var(--background);
   border-bottom: 1px solid #000000;
+  padding-bottom: 16px;
   margin-bottom: 24px;
 }
 
 .editButton {
   width: 51px;
+  height: 40px;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.18px;
+  padding: 0;
 }
 
 .deleteButton {
   width: 51px;
+  height: 40px;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.18px;
+  padding: 0;
 }
 
 /* Retrospect 영역들 */
@@ -174,6 +185,11 @@
 
 .retrospectSubmitButton {
   width: 51px;
+  height: 48px;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.18px;
+  padding: 0;
 }
 
 .retrospectList {

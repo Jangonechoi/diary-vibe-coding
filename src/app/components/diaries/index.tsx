@@ -37,8 +37,12 @@ export default function Diaries() {
     console.log("검색어:", value);
   };
 
+  // 필터 상태 관리
+  const [selectedFilter, setSelectedFilter] = useState<string | number>("all");
+
   // 필터 변경 핸들러
   const handleFilterChange = (value: string | number) => {
+    setSelectedFilter(value);
     console.log("필터 변경:", value);
   };
 
@@ -61,7 +65,6 @@ export default function Diaries() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.gap32}></div>
       <div className={styles.search}>
         <div className={styles.searchContent}>
           <div className={styles.searchWrapper}>
@@ -73,7 +76,7 @@ export default function Diaries() {
               options={filterOptions}
               onValueChange={handleFilterChange}
               className={styles.filterSelect}
-              value="all"
+              value={selectedFilter}
             />
             <Searchbar
               variant="primary"
@@ -144,7 +147,18 @@ export default function Diaries() {
                   >
                     {EMOTION[diary.emotion].label}
                   </span>
-                  <span className={styles.dateText}>{diary.date}</span>
+                  <span className={styles.dateText}>
+                    {new Date(diary.date)
+                      .toLocaleDateString("ko-KR", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      })
+                      .replace(/\./g, ". ")
+                      .replace(/\s+/g, " ")
+                      .trim()
+                      .replace(/\.$/, "")}
+                  </span>
                 </div>
                 <div className={styles.cardTitle}>{diary.title}</div>
               </div>

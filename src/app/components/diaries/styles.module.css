@@ -40,6 +40,11 @@
 .writeButton {
   display: flex;
   width: 110px;
+  height: 48px;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.18px;
+  padding: 0;
 }
 
 .gap42 {

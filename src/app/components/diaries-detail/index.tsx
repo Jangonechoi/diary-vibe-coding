@@ -65,7 +65,8 @@ const DiariesDetail: React.FC<DiariesDetailProps> = ({ diaryId }) => {
           })
           .replace(/\./g, ". ")
           .replace(/\s+/g, " ")
-          .trim(),
+          .trim()
+          .replace(/\.$/, ""),
       };
       setRetrospects([newRetrospect, ...retrospects]);
       setRetrospectText("");
@@ -105,7 +106,16 @@ const DiariesDetail: React.FC<DiariesDetailProps> = ({ diaryId }) => {
           </div>
           <div className={styles.dateSection}>
             <span className={`${styles.dateText} typo-body-body02-regular`}>
-              {diary.createdAt}
+              {new Date(diary.createdAt)
+                .toLocaleDateString("ko-KR", {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                })
+                .replace(/\./g, ". ")
+                .replace(/\s+/g, " ")
+                .trim()
+                .replace(/\.$/, "")}
             </span>
             <span className={`${styles.dateLabel} typo-body-body02-regular`}>
               작성
