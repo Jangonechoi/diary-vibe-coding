@@ -15,7 +15,7 @@
 조건-파일경로) 구현될 HOOK 파일경로: src/components/pictures/hooks/index.binding.hook.ts
 조건-파일경로) 구현될 TEST 파일경로: src/components/pictures/tests/index.binding.hook.spec.ts
 
-==============================================
+===============================================
 
 핵심요구사항) 다음의 기능을 playwright 테스트를 활용하여 TDD기반으로 구현하고, 테스트에 통과할 때까지 반복할 것.
             1) 테스트 제외 라이브러리
