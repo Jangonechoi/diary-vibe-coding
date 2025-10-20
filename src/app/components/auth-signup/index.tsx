@@ -5,6 +5,7 @@ import Link from "next/link";
 import styles from "./styles.module.css";
 import { Input } from "@/commons/components/input";
 import { Button } from "@/commons/components/button";
+import { useFormSignup } from "./hooks/index.form.hook";
 
 /**
  * AuthSignup Component
@@ -15,8 +16,11 @@ import { Button } from "@/commons/components/button";
  * - 로그인 페이지 이동 링크
  */
 const AuthSignup: React.FC = () => {
+  const { register, handleSubmit, errors, isValid, isSubmitting } =
+    useFormSignup();
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="auth-signup-page">
       <div className={styles.signupCard}>
         <div className={styles.header}>
           <h1 className={styles.title}>회원가입</h1>
@@ -25,7 +29,7 @@ const AuthSignup: React.FC = () => {
           </p>
         </div>
 
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.inputGroup}>
             <Input
               variant="primary"
@@ -35,6 +39,10 @@ const AuthSignup: React.FC = () => {
               placeholder="이메일을 입력하세요"
               label="이메일"
               fullWidth
+              error={!!errors.email}
+              errorMessage={errors.email?.message}
+              {...register("email")}
+              data-testid="signup-email-input"
             />
           </div>
 
@@ -47,6 +55,10 @@ const AuthSignup: React.FC = () => {
               placeholder="비밀번호를 입력하세요"
               label="비밀번호"
               fullWidth
+              error={!!errors.password}
+              errorMessage={errors.password?.message}
+              {...register("password")}
+              data-testid="signup-password-input"
             />
           </div>
 
@@ -59,6 +71,10 @@ const AuthSignup: React.FC = () => {
               placeholder="비밀번호를 다시 입력하세요"
               label="비밀번호 재입력"
               fullWidth
+              error={!!errors.passwordConfirm}
+              errorMessage={errors.passwordConfirm?.message}
+              {...register("passwordConfirm")}
+              data-testid="signup-password-confirm-input"
             />
           </div>
 
@@ -71,6 +87,10 @@ const AuthSignup: React.FC = () => {
               placeholder="이름을 입력하세요"
               label="이름"
               fullWidth
+              error={!!errors.name}
+              errorMessage={errors.name?.message}
+              {...register("name")}
+              data-testid="signup-name-input"
             />
           </div>
 
@@ -81,8 +101,10 @@ const AuthSignup: React.FC = () => {
               theme="light"
               fullWidth
               type="submit"
+              disabled={!isValid || isSubmitting}
+              data-testid="signup-submit-button"
             >
-              회원가입
+              {isSubmitting ? "회원가입 중..." : "회원가입"}
             </Button>
           </div>
         </form>
