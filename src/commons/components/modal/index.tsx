@@ -149,7 +149,14 @@ export const Modal: React.FC<ModalProps> = ({
     <div className={modalClasses} data-testid="modal">
       <div className={contentClasses}>
         <div className={titleClasses}>{title}</div>
-        <div className={messageClasses}>{message}</div>
+        <div className={messageClasses}>
+          {message.split("\n").map((line, index) => (
+            <React.Fragment key={index}>
+              {line}
+              {index < message.split("\n").length - 1 && <br />}
+            </React.Fragment>
+          ))}
+        </div>
       </div>
 
       <div className={actionsClasses}>

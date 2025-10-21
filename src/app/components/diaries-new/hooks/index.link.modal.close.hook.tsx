@@ -21,7 +21,7 @@ export const useLinkModalClose = () => {
         actions="dual"
         theme="light"
         title="등록 취소"
-        message="작성 중인 내용이 저장되지 않습니다. 정말 취소하시겠습니까?"
+        message="일기 등록을 취소 하시겠어요?"
         confirmText="등록취소"
         cancelText="계속작성"
         onConfirm={() => {

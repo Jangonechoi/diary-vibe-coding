@@ -54,15 +54,17 @@ export default function DiariesNew() {
 
       {/* Input Title */}
       <div className={styles.inputTitle}>
-        <Input
-          variant="primary"
-          theme="light"
-          size="medium"
-          label="제목"
-          placeholder="제목을 입력합니다."
-          {...register("title")}
-          className={styles.titleInput}
-        />
+        <div className={styles.inputContainer}>
+          <Input
+            variant="primary"
+            theme="light"
+            size="medium"
+            label="제목"
+            placeholder="제목을 입력합니다."
+            {...register("title")}
+            className={styles.titleInput}
+          />
+        </div>
       </div>
 
       {/* Gap */}
@@ -70,7 +72,7 @@ export default function DiariesNew() {
 
       {/* Input Content */}
       <div className={styles.inputContent}>
-        <div className={styles.inputContentContainer}>
+        <div className={styles.inputContainer}>
           <label className={styles.contentLabel}>내용</label>
           <textarea
             className={styles.contentTextarea}
