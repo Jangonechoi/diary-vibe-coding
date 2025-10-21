@@ -121,7 +121,8 @@ export const useFormSignup = () => {
       };
 
       const response = await fetch(
-        "https://main-practice.codebootcamp.co.kr/graphql",
+        process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ||
+          "https://main-practice.codebootcamp.co.kr/graphql",
         {
           method: "POST",
           headers: {

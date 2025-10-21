@@ -168,7 +168,7 @@ test.describe("AuthSignup Form Hook", () => {
   test("회원가입 실패 시나리오 (API 모킹)", async ({ page }) => {
     // API 요청 가로채기 (실패 응답 반환)
     await page.route(
-      "https://main-practice.codebootcamp.co.kr/graphql",
+      "process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT || "https://main-practice.codebootcamp.co.kr/graphql"",
       async (route) => {
         await route.fulfill({
           status: 200,
@@ -222,7 +222,7 @@ test.describe("AuthSignup Form Hook", () => {
   test("모달은 한 번만 표시되어야 함 (중복 방지)", async ({ page }) => {
     // API 요청 가로채기 (실패 응답 반환)
     await page.route(
-      "https://main-practice.codebootcamp.co.kr/graphql",
+      "process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT || "https://main-practice.codebootcamp.co.kr/graphql"",
       async (route) => {
         await route.fulfill({
           status: 200,

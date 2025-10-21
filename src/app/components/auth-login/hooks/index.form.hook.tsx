@@ -44,7 +44,8 @@ interface UserResponse {
  */
 const loginUser = async (data: LoginFormData): Promise<LoginResponse> => {
   const response = await fetch(
-    "https://main-practice.codebootcamp.co.kr/graphql",
+    process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ||
+      "https://main-practice.codebootcamp.co.kr/graphql",
     {
       method: "POST",
       headers: {
@@ -86,7 +87,8 @@ const fetchUserLoggedIn = async (
   accessToken: string
 ): Promise<UserResponse> => {
   const response = await fetch(
-    "https://main-practice.codebootcamp.co.kr/graphql",
+    process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ||
+      "https://main-practice.codebootcamp.co.kr/graphql",
     {
       method: "POST",
       headers: {
