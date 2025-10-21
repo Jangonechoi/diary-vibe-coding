@@ -1,4 +1,4 @@
-/* AuthSignup 컨테이너 */
+/* AuthLogin 컨테이너 */
 .container {
   display: flex;
   align-items: center;
@@ -7,8 +7,8 @@
   padding: 24px;
 }
 
-/* 회원가입 카드 */
-.signupCard {
+/* 로그인 카드 */
+.loginCard {
   width: 100%;
   max-width: 480px;
   padding: 48px 40px;
@@ -64,7 +64,7 @@
   text-align: center;
 }
 
-.loginText {
+.signupText {
   margin: 0;
   font-family: var(--font-korean);
   font-size: 14px;
@@ -73,14 +73,14 @@
   color: var(--border-strong);
 }
 
-.loginLink {
+.signupLink {
   font-weight: var(--font-weight-semibold);
   color: var(--button-primary-main);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
-.loginLink:hover {
+.signupLink:hover {
   color: var(--button-primary-hover);
   text-decoration: underline;
 }
@@ -91,7 +91,7 @@
     padding: 16px;
   }
 
-  .signupCard {
+  .loginCard {
     padding: 32px 24px;
     border-radius: 16px;
   }
@@ -125,7 +125,7 @@
     );
   }
 
-  .signupCard {
+  .loginCard {
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
   }
 }
