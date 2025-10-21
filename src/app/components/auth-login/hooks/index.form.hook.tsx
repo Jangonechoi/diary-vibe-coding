@@ -7,6 +7,7 @@ import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/commons/providers/modal/modal.provider";
+import { useAuth } from "@/commons/providers/auth/auth.provider";
 import { Modal } from "@/commons/components/modal";
 import { URLS } from "@/commons/constants/url";
 
@@ -133,6 +134,7 @@ export const useAuthLoginForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const { openModal, closeModal } = useModal();
+  const { login } = useAuth();
 
   // 폼 설정
   const form = useForm<LoginFormData>({
@@ -149,14 +151,17 @@ export const useAuthLoginForm = () => {
     mutationFn: loginUser,
     onSuccess: async (data) => {
       try {
-        // 로그인 성공 시 accessToken을 로컬스토리지에 저장
-        localStorage.setItem("accessToken", data.accessToken);
-
         // 사용자 정보 조회
         const userInfo = await fetchUserLoggedIn(data.accessToken);
-        localStorage.setItem(
-          "user",
-          JSON.stringify({ _id: userInfo._id, name: userInfo.name })
+
+        // AuthProvider의 login 함수를 사용하여 상태 업데이트
+        login(
+          {
+            id: userInfo._id,
+            email: "", // 이메일은 API에서 제공하지 않으므로 빈 문자열
+            name: userInfo.name,
+          },
+          data.accessToken
         );
 
         // 로그인 완료 모달 표시

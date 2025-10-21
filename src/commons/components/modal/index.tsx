@@ -146,7 +146,7 @@ export const Modal: React.FC<ModalProps> = ({
   };
 
   return (
-    <div className={modalClasses}>
+    <div className={modalClasses} data-testid="modal">
       <div className={contentClasses}>
         <div className={titleClasses}>{title}</div>
         <div className={messageClasses}>{message}</div>
