@@ -34,7 +34,7 @@ const AuthLogin: React.FC = () => {
               type="email"
               placeholder="이메일을 입력하세요"
               label="이메일"
-              fullWidth
+              className={styles.inputWidth}
               data-testid="login-email-input"
             />
           </div>
@@ -47,7 +47,7 @@ const AuthLogin: React.FC = () => {
               type="password"
               placeholder="비밀번호를 입력하세요"
               label="비밀번호"
-              fullWidth
+              className={styles.inputWidth}
               data-testid="login-password-input"
             />
           </div>
@@ -57,8 +57,8 @@ const AuthLogin: React.FC = () => {
               variant="primary"
               size="large"
               theme="light"
-              fullWidth
               type="submit"
+              className={styles.buttonWidth}
               data-testid="login-submit-button"
             >
               로그인
@@ -68,7 +68,7 @@ const AuthLogin: React.FC = () => {
 
         <div className={styles.footer}>
           <p className={styles.signupText}>
-            계정이 없으신가요?{" "}
+            아직 계정이 없으신가요?{" "}
             <Link href="/auth/signup" className={styles.signupLink}>
               회원가입하기
             </Link>

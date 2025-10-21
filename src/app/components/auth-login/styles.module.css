@@ -58,6 +58,14 @@
   margin-top: 8px;
 }
 
+.inputWidth {
+  width: 100%;
+}
+
+.buttonWidth {
+  width: 100%;
+}
+
 /* 푸터 */
 .footer {
   margin-top: 32px;
