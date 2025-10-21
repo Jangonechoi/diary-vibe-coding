@@ -5,6 +5,7 @@ import Link from "next/link";
 import styles from "./styles.module.css";
 import { Input } from "@/commons/components/input";
 import { Button } from "@/commons/components/button";
+import { useAuthLoginForm } from "./hooks/index.form.hook";
 
 /**
  * AuthLogin Component
@@ -15,6 +16,8 @@ import { Button } from "@/commons/components/button";
  * - 회원가입 페이지 이동 링크
  */
 const AuthLogin: React.FC = () => {
+  const { form, onSubmit, isButtonDisabled, isSubmitting } = useAuthLoginForm();
+
   return (
     <div className={styles.container} data-testid="auth-login-page">
       <div className={styles.loginCard}>
@@ -25,7 +28,7 @@ const AuthLogin: React.FC = () => {
           </p>
         </div>
 
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={form.handleSubmit(onSubmit)}>
           <div className={styles.inputGroup}>
             <Input
               variant="primary"
@@ -36,6 +39,9 @@ const AuthLogin: React.FC = () => {
               label="이메일"
               className={styles.inputWidth}
               data-testid="login-email-input"
+              {...form.register("email")}
+              error={!!form.formState.errors.email}
+              errorMessage={form.formState.errors.email?.message}
             />
           </div>
 
@@ -49,6 +55,9 @@ const AuthLogin: React.FC = () => {
               label="비밀번호"
               className={styles.inputWidth}
               data-testid="login-password-input"
+              {...form.register("password")}
+              error={!!form.formState.errors.password}
+              errorMessage={form.formState.errors.password?.message}
             />
           </div>
 
@@ -60,8 +69,9 @@ const AuthLogin: React.FC = () => {
               type="submit"
               className={styles.buttonWidth}
               data-testid="login-submit-button"
+              disabled={isButtonDisabled}
             >
-              로그인
+              {isSubmitting ? "로그인 중..." : "로그인"}
             </Button>
           </div>
         </form>
