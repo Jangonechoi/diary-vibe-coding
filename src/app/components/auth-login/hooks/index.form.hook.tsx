@@ -43,29 +43,25 @@ interface UserResponse {
  * 로그인 API 함수
  */
 const loginUser = async (data: LoginFormData): Promise<LoginResponse> => {
-  const response = await fetch(
-    process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ||
-      "https://main-practice.codebootcamp.co.kr/graphql",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        query: `
+  const response = await fetch("/api/graphql", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      query: `
         mutation LoginUser($email: String!, $password: String!) {
           loginUser(email: $email, password: $password) {
             accessToken
           }
         }
       `,
-        variables: {
-          email: data.email,
-          password: data.password,
-        },
-      }),
-    }
-  );
+      variables: {
+        email: data.email,
+        password: data.password,
+      },
+    }),
+  });
 
   if (!response.ok) {
     throw new Error("로그인에 실패했습니다");
@@ -86,17 +82,14 @@ const loginUser = async (data: LoginFormData): Promise<LoginResponse> => {
 const fetchUserLoggedIn = async (
   accessToken: string
 ): Promise<UserResponse> => {
-  const response = await fetch(
-    process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ||
-      "https://main-practice.codebootcamp.co.kr/graphql",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: JSON.stringify({
-        query: `
+  const response = await fetch("/api/graphql", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({
+      query: `
         query FetchUserLoggedIn {
           fetchUserLoggedIn {
             _id
@@ -104,9 +97,8 @@ const fetchUserLoggedIn = async (
           }
         }
       `,
-      }),
-    }
-  );
+    }),
+  });
 
   if (!response.ok) {
     throw new Error("사용자 정보 조회에 실패했습니다");

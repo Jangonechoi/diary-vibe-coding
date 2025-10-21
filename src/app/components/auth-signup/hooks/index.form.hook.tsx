@@ -120,20 +120,16 @@ export const useFormSignup = () => {
         },
       };
 
-      const response = await fetch(
-        process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ||
-          "https://main-practice.codebootcamp.co.kr/graphql",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            query,
-            variables,
-          }),
-        }
-      );
+      const response = await fetch("/api/graphql", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query,
+          variables,
+        }),
+      });
 
       if (!response.ok) {
         throw new Error("네트워크 오류가 발생했습니다.");
