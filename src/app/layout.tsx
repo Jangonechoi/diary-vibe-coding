@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { AuthProvider } from "@/commons/providers/auth/auth.provider";
 import { ModalProvider } from "@/commons/providers/modal/modal.provider";
 import { NextThemesProvider } from "@/commons/providers/next-themes/next-themes.provider";
 import { ReactQueryProvider } from "@/commons/providers/react-query/react-query.provider";
@@ -32,13 +33,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ReactQueryProvider>
-          <NextThemesProvider>
-            <ModalProvider>
-              <Layout>{children}</Layout>
-            </ModalProvider>
-          </NextThemesProvider>
-        </ReactQueryProvider>
+        <AuthProvider>
+          <ReactQueryProvider>
+            <NextThemesProvider>
+              <ModalProvider>
+                <Layout>{children}</Layout>
+              </ModalProvider>
+            </NextThemesProvider>
+          </ReactQueryProvider>
+        </AuthProvider>
       </body>
     </html>
   );

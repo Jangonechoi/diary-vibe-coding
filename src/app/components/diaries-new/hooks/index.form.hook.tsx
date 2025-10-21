@@ -137,6 +137,8 @@ export const useFormDiary = () => {
             message="일기가 등록되었습니다."
             confirmText="확인"
             onConfirm={() => {
+              // 폼 초기화
+              reset();
               // 모든 모달 닫기 및 페이지 이동
               closeModal(); // 등록완료 모달 닫기
               closeModal(); // 일기쓰기 모달 닫기
@@ -147,9 +149,6 @@ export const useFormDiary = () => {
             }}
           />
         );
-
-        // 폼 초기화
-        reset();
       } catch (error) {
         console.error("일기 등록 실패:", error);
       }

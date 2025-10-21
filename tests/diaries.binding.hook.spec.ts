@@ -12,28 +12,28 @@ test.describe("일기 목록 바인딩 훅 테스트", () => {
           title: "첫 번째 일기 제목",
           content: "첫 번째 일기 내용입니다.",
           emotion: "Happy",
-          createdAt: "2024. 07. 12",
+          createdAt: "2024-07-12T00:00:00.000Z",
         },
         {
           id: 2,
           title: "두 번째 일기 제목",
           content: "두 번째 일기 내용입니다.",
           emotion: "Sad",
-          createdAt: "2024. 07. 13",
+          createdAt: "2024-07-13T00:00:00.000Z",
         },
         {
           id: 3,
           title: "세 번째 일기 제목",
           content: "세 번째 일기 내용입니다.",
           emotion: "Angry",
-          createdAt: "2024. 07. 14",
+          createdAt: "2024-07-14T00:00:00.000Z",
         },
         {
           id: 4,
           title: "네 번째 일기 제목",
           content: "네 번째 일기 내용입니다.",
           emotion: "Surprise",
-          createdAt: "2024. 07. 15",
+          createdAt: "2024-07-15T00:00:00.000Z",
         },
         {
           id: 5,
@@ -41,7 +41,7 @@ test.describe("일기 목록 바인딩 훅 테스트", () => {
             "다섯 번째 일기 제목 - 매우 긴 제목이 있을 때 말줄임표로 처리되는지 확인하기 위한 긴 텍스트입니다",
           content: "다섯 번째 일기 내용입니다.",
           emotion: "Etc",
-          createdAt: "2024. 07. 16",
+          createdAt: "2024-07-16T00:00:00.000Z",
         },
       ];
       localStorage.setItem("diaries", JSON.stringify(testDiaries));

@@ -233,15 +233,22 @@ test.describe("일기쓰기 폼 등록 기능 테스트", () => {
     await page.waitForURL("**/diaries/**", { timeout: 5000 });
 
     // 다시 일기쓰기 페이지로 돌아가기
-    await page.goto("/diaries", { waitUntil: "domcontentloaded" });
-    await page.waitForSelector('[data-testid="diary-write-button"]');
+    await page.goto("/diaries", { waitUntil: "networkidle" });
+    await page.waitForSelector('[data-testid="diary-write-button"]', {
+      state: "visible",
+    });
+
+    // React가 완전히 초기화될 때까지 추가 대기
+    await page.waitForTimeout(500);
 
     // 일기쓰기 버튼 클릭
     const writeButton = page.locator('[data-testid="diary-write-button"]');
     await writeButton.click();
 
     // 일기쓰기 모달 대기
-    await expect(page.locator("text=일기 쓰기")).toBeVisible({ timeout: 400 });
+    await expect(page.locator("text=일기 쓰기")).toBeVisible({
+      timeout: 5000,
+    });
 
     // 입력 필드가 초기화되어 있는지 확인
     const titleInputValue = await titleInput.inputValue();

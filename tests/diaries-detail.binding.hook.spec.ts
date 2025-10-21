@@ -13,7 +13,7 @@ test.describe("일기 상세 바인딩 훅 테스트", () => {
           content:
             "이것은 첫 번째 일기의 내용입니다. 오늘은 정말 좋은 날씨였어요. 친구들과 함께 공원에서 시간을 보냈고, 매우 즐거웠습니다.",
           emotion: "Happy",
-          createdAt: "2024. 07. 12",
+          createdAt: "2024-07-12T00:00:00.000Z",
         },
         {
           id: 2,
@@ -21,14 +21,14 @@ test.describe("일기 상세 바인딩 훅 테스트", () => {
           content:
             "이것은 두 번째 일기의 내용입니다. 오늘은 조금 슬펐어요. 생각이 많은 하루였던 것 같습니다.",
           emotion: "Sad",
-          createdAt: "2024. 07. 13",
+          createdAt: "2024-07-13T00:00:00.000Z",
         },
         {
           id: 3,
           title: "세 번째 일기",
           content: "이것은 세 번째 일기의 내용입니다. 오늘 정말 화났어요.",
           emotion: "Angry",
-          createdAt: "2024. 07. 14",
+          createdAt: "2024-07-14T00:00:00.000Z",
         },
       ];
       localStorage.setItem("diaries", JSON.stringify(testDiaries));

@@ -20,7 +20,7 @@ test.describe("일기쓰기 모달 테스트", () => {
     await expect(modalHeader).toBeVisible({ timeout: 1000 });
 
     // 모달 컨텐츠가 보이는지 확인
-    const modalContent = page.locator(".relative.z-10.bg-white");
+    const modalContent = page.locator('[class*="modalWrapper"]');
     await expect(modalContent).toBeVisible();
   });
 
@@ -37,7 +37,7 @@ test.describe("일기쓰기 모달 테스트", () => {
     await expect(modalHeader).toBeVisible({ timeout: 1000 });
 
     // 백드롭 클릭 (모달 컨텐츠가 아닌 백드롭 영역)
-    const modalBackdrop = page.locator(".fixed.inset-0.z-50");
+    const modalBackdrop = page.locator('[class*="backdrop"]');
     await modalBackdrop.click({ position: { x: 10, y: 10 } });
 
     // 모달이 닫혔는지 확인
@@ -60,6 +60,14 @@ test.describe("일기쓰기 모달 테스트", () => {
     const closeButton = page.locator('button:has-text("닫기")');
     await expect(closeButton).toBeVisible();
     await closeButton.click();
+
+    // 등록취소 확인 모달이 열렸는지 확인
+    await expect(page.getByText("등록 취소")).toBeVisible({ timeout: 1000 });
+
+    // 등록취소 버튼 클릭하여 모달 닫기
+    const cancelConfirmButton = page.locator('button:has-text("등록취소")');
+    await expect(cancelConfirmButton).toBeVisible();
+    await cancelConfirmButton.click();
 
     // 모달이 닫혔는지 확인
     await expect(modalHeader).not.toBeVisible();

@@ -141,7 +141,7 @@ export const useAuthLoginForm = () => {
       email: "",
       password: "",
     },
-    mode: "onChange",
+    mode: "onBlur",
   });
 
   // 로그인 API 뮤테이션
@@ -218,8 +218,10 @@ export const useAuthLoginForm = () => {
     loginMutation.mutate(data);
   };
 
-  // 폼 유효성 검사
-  const isFormValid = form.formState.isValid;
+  // 폼 유효성 검사 - 값이 입력되었는지 확인
+  const hasEmail = form.watch("email").length > 0;
+  const hasPassword = form.watch("password").length > 0;
+  const isFormValid = hasEmail && hasPassword;
   const isButtonDisabled = !isFormValid || isSubmitting;
 
   return {
