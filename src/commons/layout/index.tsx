@@ -33,7 +33,9 @@ export default function Layout({ children }: LayoutProps) {
           )}
           {isAuthenticated && user ? (
             <div className={styles.authStatus} data-testid="layout-auth-status">
-              <span className={styles.userName}>{user.name}</span>
+              <span className={styles.userName} data-testid="layout-user-name">
+                {user.name}
+              </span>
               <Button
                 variant="secondary"
                 size="small"

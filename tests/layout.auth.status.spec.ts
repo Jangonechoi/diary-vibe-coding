@@ -41,7 +41,7 @@ test.describe("Layout 인증 상태 UI 테스트", () => {
     await expect(authStatus).toBeVisible();
 
     // 사용자 이름 표시 확인
-    const userName = authStatus.locator(".userName");
+    const userName = page.locator('[data-testid="layout-user-name"]');
     await expect(userName).toHaveText("홍길동");
 
     // 로그아웃 버튼 표시 확인
@@ -114,7 +114,7 @@ test.describe("Layout 인증 상태 UI 테스트", () => {
 
     // 첫 번째 사용자 이름 확인
     const authStatus = page.locator('[data-testid="layout-auth-status"]');
-    const userName = authStatus.locator(".userName");
+    const userName = page.locator('[data-testid="layout-user-name"]');
     await expect(userName).toHaveText("김철수");
 
     // 두 번째 사용자로 변경
@@ -201,7 +201,7 @@ test.describe("Layout 인증 상태 UI 테스트", () => {
     const newAuthStatus = page.locator('[data-testid="layout-auth-status"]');
     await expect(newAuthStatus).toBeVisible();
 
-    const newUserName = newAuthStatus.locator(".userName");
+    const newUserName = page.locator('[data-testid="layout-user-name"]');
     await expect(newUserName).toHaveText("박민수");
   });
 
@@ -232,7 +232,7 @@ test.describe("Layout 인증 상태 UI 테스트", () => {
     await expect(authStatus).toBeVisible();
 
     // 사용자 이름 스타일 확인
-    const userName = authStatus.locator(".userName");
+    const userName = page.locator('[data-testid="layout-user-name"]');
     await expect(userName).toHaveCSS("font-family", /Pretendard/);
     await expect(userName).toHaveCSS("font-size", "16px");
     await expect(userName).toHaveCSS("font-weight", "500");

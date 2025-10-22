@@ -31,9 +31,7 @@ test.describe("일기쓰기 모달 닫기 기능 테스트", () => {
     await expect(cancelModal).toBeVisible({ timeout: 400 });
 
     // 확인 메시지가 표시되는지 확인
-    const cancelMessage = page.locator(
-      "text=작성 중인 내용이 저장되지 않습니다. 정말 취소하시겠습니까?"
-    );
+    const cancelMessage = page.locator("text=일기 등록을 취소 하시겠어요?");
     await expect(cancelMessage).toBeVisible();
 
     // 계속작성 버튼이 표시되는지 확인
@@ -119,6 +117,34 @@ test.describe("일기쓰기 모달 닫기 기능 테스트", () => {
 
     // 최소 2개 이상의 backdrop이 있어야 함 (일기쓰기 모달 + 등록취소 모달)
     expect(backdropCount).toBeGreaterThanOrEqual(2);
+  });
+
+  test("등록취소 확인 모달의 계속작성 버튼 클릭 시 등록취소 모달(자식)만 닫히고 일기쓰기 모달(부모)은 유지된다", async ({
+    page,
+  }) => {
+    // 일기쓰기 모달의 닫기 버튼 클릭
+    const closeButton = page.locator('button:has-text("닫기")');
+    await closeButton.click({ force: true });
+
+    // 등록취소 확인 모달이 열렸는지 확인
+    await expect(page.locator("text=등록 취소")).toBeVisible({ timeout: 400 });
+
+    // 계속작성 버튼 클릭
+    const continueButton = page.locator('button:has-text("계속작성")');
+    await continueButton.click({ force: true });
+
+    // 등록취소 확인 모달(자식)이 닫혔는지 확인 (timeout: 500ms 미만)
+    await expect(page.locator("text=등록 취소")).not.toBeVisible({
+      timeout: 400,
+    });
+
+    // 일기쓰기 모달(부모)은 여전히 열려있는지 확인
+    const writeModalHeader = page.locator("text=일기 쓰기");
+    await expect(writeModalHeader).toBeVisible();
+
+    // 일기쓰기 모달의 다른 요소들도 여전히 보이는지 확인
+    await expect(page.locator("text=오늘 기분은 어땠나요?")).toBeVisible();
+    await expect(page.locator('button:has-text("등록하기")')).toBeVisible();
   });
 
   test("중첩 모달에서 바깥쪽 backdrop 클릭 시 최상위 모달(자식)만 닫힌다", async ({

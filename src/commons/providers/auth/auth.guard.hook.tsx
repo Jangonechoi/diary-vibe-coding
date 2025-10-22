@@ -81,8 +81,9 @@ export function useAuthGuard(): AuthGuardHookReturn {
    * 모달을 닫고 중복 표시를 방지합니다.
    */
   const handleModalClose = useCallback(() => {
-    // 모달 닫기 (중복 표시 방지를 위한 추가 로직은 필요시 구현)
-  }, []);
+    // 로그인 모달 닫기
+    closeModal();
+  }, [closeModal]);
 
   /**
    * 로그인 모달 표시

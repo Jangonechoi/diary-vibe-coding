@@ -29,7 +29,8 @@ export const useLinkModalClose = () => {
           closeModal(); // 일기쓰기폼모달(부모) 닫기
         }}
         onCancel={() => {
-          // 계속작성: 아무것도 하지 않음 (Modal이 onClose를 호출하여 등록취소모달만 닫힘)
+          // 계속작성: 등록취소모달(자식)만 닫기, 일기쓰기폼모달(부모)는 유지
+          // 아무것도 하지 않음 (Modal이 onClose를 호출하여 등록취소모달만 닫힘)
         }}
         onClose={() => {
           // Modal 내부에서 호출되어 등록취소모달(자식) 닫기

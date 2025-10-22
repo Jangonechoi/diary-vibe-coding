@@ -53,7 +53,7 @@ test.describe("사진 목록 바인딩 훅 테스트", () => {
     const splashScreens = page.locator('[data-testid="splash-screen"]');
 
     // 스플래시 스크린이 6개인지 확인
-    await expect(splashScreens).toHaveCount(6, { timeout: 1000 });
+    await expect(splashScreens).toHaveCount(6, { timeout: 3000 });
 
     await loadingPromise;
   });

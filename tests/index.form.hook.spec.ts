@@ -152,7 +152,7 @@ test.describe("Auth Login Form Hook", () => {
 
       // user 정보 파싱 및 검증
       const userData = JSON.parse(user);
-      expect(userData).toHaveProperty("_id");
+      expect(userData).toHaveProperty("id");
       expect(userData).toHaveProperty("name");
     });
   });

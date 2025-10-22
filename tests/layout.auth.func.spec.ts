@@ -52,7 +52,7 @@ test.describe("Layout 인증 기능 테스트", () => {
     const authStatus = page.locator('[data-testid="layout-auth-status"]');
     await expect(authStatus).toBeVisible();
 
-    const userName = authStatus.locator(".userName");
+    const userName = page.locator('[data-testid="layout-user-name"]');
     await expect(userName).toBeVisible();
 
     const logoutButton = page.locator('[data-testid="layout-logout-button"]');

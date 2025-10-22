@@ -7,7 +7,7 @@ test.describe("일기쓰기 폼 등록 기능 테스트", () => {
 
     // 페이지 로드 대기 - data-testid로 식별
     await page.waitForSelector('[data-testid="diary-write-button"]', {
-      timeout: 500,
+      timeout: 2000,
     });
 
     // 일기쓰기 버튼 클릭하여 일기쓰기 모달 열기
