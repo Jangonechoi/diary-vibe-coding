@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import React, { useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "./auth.provider";
 import { useModal } from "../modal/modal.provider";
@@ -29,13 +29,22 @@ export interface AuthGuardHookReturn {
 }
 
 /**
- * AuthGuard Hook
+ * useAuthGuard 훅
  *
  * 권한 여부를 검증하는 GUARD 기능을 제공합니다.
  * - 액션 GUARD 구현
  * - 인증 프로바이더를 활용한 로그인 유/무 판단
  * - 인가 실패 시 로그인 모달 표시
  * - 테스트 환경과 실제 환경 분리
+ *
+ * @returns {AuthGuardHookReturn} 권한 검증 함수를 포함한 객체
+ *
+ * @example
+ * const { guard } = useAuthGuard();
+ * const success = await guard(() => {
+ *   // 보호된 액션 실행
+ *   console.log('권한이 있는 사용자만 실행됩니다');
+ * });
  */
 export function useAuthGuard(): AuthGuardHookReturn {
   const router = useRouter();
@@ -44,6 +53,8 @@ export function useAuthGuard(): AuthGuardHookReturn {
 
   /**
    * 테스트 환경 여부 확인
+   * 클라이언트 사이드에서 NEXT_PUBLIC_TEST_ENV 환경변수를 확인합니다.
+   * 서버 사이드에서는 항상 false를 반환하여 권한 검증을 수행합니다.
    */
   const isTestEnvironment = useCallback(() => {
     // 클라이언트 사이드에서 환경변수 확인
@@ -56,6 +67,7 @@ export function useAuthGuard(): AuthGuardHookReturn {
 
   /**
    * 로그인 모달 확인 버튼 클릭 핸들러
+   * 모든 모달을 닫고 로그인 페이지로 이동합니다.
    */
   const handleLoginConfirm = useCallback(() => {
     // 모든 모달 닫기
@@ -66,6 +78,7 @@ export function useAuthGuard(): AuthGuardHookReturn {
 
   /**
    * 모달 닫기 핸들러
+   * 모달을 닫고 중복 표시를 방지합니다.
    */
   const handleModalClose = useCallback(() => {
     // 모달 닫기 (중복 표시 방지를 위한 추가 로직은 필요시 구현)
@@ -73,6 +86,7 @@ export function useAuthGuard(): AuthGuardHookReturn {
 
   /**
    * 로그인 모달 표시
+   * 권한이 없는 사용자에게 로그인을 요청하는 모달을 표시합니다.
    */
   const showLoginModal = useCallback(() => {
     const modalContent = (
@@ -94,6 +108,11 @@ export function useAuthGuard(): AuthGuardHookReturn {
 
   /**
    * 권한 검증 함수
+   *
+   * 액션 실행 전 권한을 검증합니다.
+   * - 테스트 환경에서는 window.__TEST_BYPASS__ 플래그에 따라 검증 여부 결정
+   * - 실제 환경에서는 항상 인증 상태를 확인
+   * - 권한이 없으면 로그인 모달을 표시하고 액션 실행을 중단
    *
    * @param action - 실행할 액션 함수
    * @returns Promise<boolean> - 권한 검증 성공 여부
