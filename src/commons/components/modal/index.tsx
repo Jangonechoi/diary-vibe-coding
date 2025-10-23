@@ -146,42 +146,44 @@ export const Modal: React.FC<ModalProps> = ({
   };
 
   return (
-    <div className={modalClasses} data-testid="modal">
-      <div className={contentClasses}>
-        <div className={titleClasses}>{title}</div>
-        <div className={messageClasses}>
-          {message.split("\n").map((line, index) => (
-            <React.Fragment key={index}>
-              {line}
-              {index < message.split("\n").length - 1 && <br />}
-            </React.Fragment>
-          ))}
+    <div className={styles.overlay} data-testid="modal-overlay">
+      <div className={modalClasses} data-testid="modal">
+        <div className={contentClasses}>
+          <div className={titleClasses}>{title}</div>
+          <div className={messageClasses}>
+            {message.split("\n").map((line, index) => (
+              <React.Fragment key={index}>
+                {line}
+                {index < message.split("\n").length - 1 && <br />}
+              </React.Fragment>
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className={actionsClasses}>
-        {actions === "dual" && (
+        <div className={actionsClasses}>
+          {actions === "dual" && (
+            <Button
+              variant={cancelButtonVariant}
+              size="large"
+              theme="light"
+              onClick={handleCancel}
+              className={styles.buttonDual}
+            >
+              {cancelText}
+            </Button>
+          )}
           <Button
-            variant={cancelButtonVariant}
+            variant={confirmButtonVariant}
             size="large"
             theme="light"
-            onClick={handleCancel}
-            className={styles.buttonDual}
+            onClick={handleConfirm}
+            className={
+              actions === "single" ? styles.buttonSingle : styles.buttonDual
+            }
           >
-            {cancelText}
+            {confirmText}
           </Button>
-        )}
-        <Button
-          variant={confirmButtonVariant}
-          size="large"
-          theme="light"
-          onClick={handleConfirm}
-          className={
-            actions === "single" ? styles.buttonSingle : styles.buttonDual
-          }
-        >
-          {confirmText}
-        </Button>
+        </div>
       </div>
     </div>
   );

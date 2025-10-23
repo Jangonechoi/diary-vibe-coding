@@ -16,12 +16,14 @@ import { useFilterDiaries } from "./hooks/index.filter.hook";
 import { usePagination } from "./hooks/index.pagination.hook";
 import { useDeleteDiary } from "./hooks/index.delete.hook";
 import { useAuth } from "@/commons/providers/auth/auth.provider";
+import { Modal } from "@/commons/components/modal";
 
 export default function Diaries() {
   const { openWriteModal } = useDiaryWriteModal();
   const { diaries } = useBindingDiaries();
   const { handleDiaryCardClick } = useLinkRoutingDiaries();
-  const { handleDeleteDiary } = useDeleteDiary();
+  const { isModalOpen, openDeleteModal, closeDeleteModal, handleDelete } =
+    useDeleteDiary();
   const { isAuthenticated } = useAuth();
   const {
     searchQuery,
@@ -178,7 +180,7 @@ export default function Diaries() {
                         className={styles.closeIcon}
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleDeleteDiary(Number(diaryData.id));
+                          openDeleteModal(Number(diaryData.id));
                         }}
                         data-testid={`delete-icon-${diaryData.id}`}
                       >
@@ -243,6 +245,22 @@ export default function Diaries() {
         />
       </div>
       <div className={styles.gap40}></div>
+
+      {/* 삭제 모달 */}
+      {isModalOpen && (
+        <Modal
+          variant="danger"
+          actions="dual"
+          theme="light"
+          title="일기 삭제"
+          message="일기를 삭제 하시겠어요?"
+          confirmText="삭제"
+          cancelText="취소"
+          onConfirm={handleDelete}
+          onCancel={closeDeleteModal}
+          onClose={closeDeleteModal}
+        />
+      )}
     </div>
   );
 }

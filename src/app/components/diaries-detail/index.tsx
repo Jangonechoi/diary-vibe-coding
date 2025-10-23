@@ -48,13 +48,8 @@ const DiariesDetail: React.FC<DiariesDetailProps> = ({ diaryId }) => {
   } = useDiaryUpdate(diaryId ? parseInt(diaryId) : 0, initialUpdateData);
 
   // 일기 삭제 훅 사용
-  const {
-    isDeleting,
-    isModalOpen,
-    openDeleteModal,
-    closeDeleteModal,
-    handleDelete,
-  } = useDiaryDelete(diaryId ? parseInt(diaryId) : 0);
+  const { isModalOpen, openDeleteModal, closeDeleteModal, handleDelete } =
+    useDiaryDelete(diaryId ? parseInt(diaryId) : 0);
 
   // 로컬스토리지에서 회고 데이터 로드
   useEffect(() => {

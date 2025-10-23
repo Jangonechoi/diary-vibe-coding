@@ -79,7 +79,9 @@ test.describe("일기 삭제 기능", () => {
     });
 
     // ID가 1인 일기가 삭제되었는지 확인
-    const deletedDiary = remainingDiaries.find((diary: any) => diary.id === 1);
+    const deletedDiary = remainingDiaries.find(
+      (diary: { id: number }) => diary.id === 1
+    );
     expect(deletedDiary).toBeUndefined();
 
     // 남은 일기는 1개여야 함
