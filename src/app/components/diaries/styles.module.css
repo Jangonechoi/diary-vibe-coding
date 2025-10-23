@@ -6,12 +6,12 @@
 }
 
 .gap32 {
-  width: 1168px;
+  width: 100%;
   height: 32px;
 }
 
 .search {
-  width: 1168px;
+  width: 100%;
   height: 48px;
 }
 
@@ -48,22 +48,39 @@
 }
 
 .gap42 {
-  width: 1168px;
+  width: 100%;
   height: 42px;
 }
 
 .main {
-  width: 1168px;
-  height: 936px;
+  width: 100%;
 }
 
 .diaryGrid {
   display: grid;
   grid-template-columns: repeat(4, 274px);
-  grid-template-rows: repeat(3, 296px);
   gap: 24px;
   width: 100%;
-  height: 100%;
+  justify-content: center;
+}
+
+/* 반응형 디자인 - 화면 크기에 따라 컬럼 수 조정 */
+@media (max-width: 1200px) {
+  .diaryGrid {
+    grid-template-columns: repeat(3, 274px);
+  }
+}
+
+@media (max-width: 900px) {
+  .diaryGrid {
+    grid-template-columns: repeat(2, 274px);
+  }
+}
+
+@media (max-width: 600px) {
+  .diaryGrid {
+    grid-template-columns: repeat(1, 274px);
+  }
 }
 
 .diaryCard {
@@ -161,12 +178,12 @@
 }
 
 .gap40 {
-  width: 1168px;
+  width: 100%;
   height: 40px;
 }
 
 .pagination {
-  width: 1168px;
+  width: 100%;
   height: 32px;
   display: flex;
   align-items: center;

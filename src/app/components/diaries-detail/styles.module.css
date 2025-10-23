@@ -2,13 +2,13 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 1168px;
   margin: 0 auto;
   padding: 16px 0;
 }
 
 /* Detail Title 영역 */
 .detailTitle {
+  width: 100%;
   height: 84px;
   display: flex;
   flex-direction: column;
@@ -51,6 +51,7 @@
 
 .emotionText {
   /* 색상은 인라인 스타일로 동적으로 적용됨 */
+  display: inline-block;
 }
 
 .dateSection {
@@ -69,6 +70,7 @@
 
 /* Detail Content 영역 */
 .detailContent {
+  width: 100%;
   height: 169px;
   display: flex;
   flex-direction: column;
@@ -122,6 +124,7 @@
 
 /* Detail Footer 영역 */
 .detailFooter {
+  width: 100%;
   height: 56px;
   display: flex;
   align-items: center;
@@ -153,8 +156,8 @@
 
 /* Retrospect 영역들 */
 .retrospectInput {
-  height: 85px;
   width: 100%;
+  height: 85px;
   display: flex;
   flex-direction: column;
   background-color: var(--background);
@@ -193,6 +196,7 @@
 }
 
 .retrospectList {
+  width: 100%;
   display: flex;
   flex-direction: column;
   background-color: var(--background);
@@ -242,6 +246,7 @@
 
 /* 수정 모드 스타일 */
 .editEmotionSection {
+  width: 100%;
   background-color: var(--background);
   border-radius: 8px;
   padding: 16px;
@@ -288,6 +293,7 @@
 
 .editTitleSection,
 .editContentSection {
+  width: 100%;
   background-color: var(--background);
   border-radius: 8px;
   padding: 16px;
@@ -331,6 +337,7 @@
 }
 
 .editButtonSection {
+  width: 100%;
   display: flex;
   justify-content: flex-end;
   gap: 16px;

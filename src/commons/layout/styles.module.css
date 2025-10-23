@@ -4,13 +4,17 @@
   align-items: center;
   width: 100%;
   min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 1168px;
+  width: 100%;
+  max-width: 1168px;
   height: 60px;
 }
 
@@ -26,18 +30,21 @@
 }
 
 .gap24 {
-  width: 1168px;
+  width: 100%;
+  max-width: 1168px;
   height: 24px;
 }
 
 .gap32 {
-  width: 1168px;
+  width: 100%;
+  max-width: 1168px;
   height: 32px;
 }
 
 .banner {
   position: relative;
-  width: 1168px;
+  width: 100%;
+  max-width: 1168px;
   height: 240px;
   border-radius: 24px;
   overflow: hidden;
@@ -46,7 +53,8 @@
 .navigation {
   display: flex;
   gap: 16px;
-  width: 1168px;
+  width: 100%;
+  max-width: 1168px;
   height: 48px;
 }
 
@@ -71,7 +79,8 @@
 }
 
 .children {
-  width: 1168px;
+  width: 100%;
+  max-width: 1168px;
   flex: 1;
 }
 
@@ -88,7 +97,8 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  width: 1168px;
+  width: 100%;
+  max-width: 1168px;
 }
 
 .footerLogo {
