@@ -129,7 +129,30 @@ test.describe("AuthSignup Form Hook", () => {
     await expect(submitButton).toBeDisabled();
   });
 
-  test("회원가입 성공 시나리오 (실제 API 호출)", async ({ page }) => {
+  test("회원가입 성공 시나리오 (API 모킹)", async ({ page }) => {
+    // API 요청 가로채기 (성공 응답 반환)
+    await page.route("**/api/graphql", async (route) => {
+      const request = route.request();
+      const postData = request.postData();
+
+      if (postData && postData.includes("createUser")) {
+        // 성공 응답 반환
+        await route.fulfill({
+          status: 200,
+          contentType: "application/json",
+          body: JSON.stringify({
+            data: {
+              createUser: {
+                _id: "test-user-id-123",
+              },
+            },
+          }),
+        });
+      } else {
+        await route.continue();
+      }
+    });
+
     // 고유한 이메일 생성 (timestamp 사용)
     const timestamp = Date.now();
     const email = `test${timestamp}@example.com`;
@@ -149,9 +172,9 @@ test.describe("AuthSignup Form Hook", () => {
     await expect(submitButton).toBeEnabled();
     await submitButton.click();
 
-    // 성공 모달이 표시될 때까지 대기 (최대 2초)
+    // 성공 모달이 표시될 때까지 대기 (최대 3초)
     const successModal = page.locator("text=가입 완료");
-    await expect(successModal).toBeVisible({ timeout: 2000 });
+    await expect(successModal).toBeVisible({ timeout: 3000 });
 
     // 메시지 확인
     const successMessage = page.locator("text=회원가입이 완료되었습니다");

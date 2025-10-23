@@ -1,11 +1,32 @@
 import { test, expect } from "@playwright/test";
 
+// 테스트 환경을 위한 전역 타입 선언
+declare global {
+  interface Window {
+    __TEST_BYPASS__?: boolean;
+  }
+}
+
 test.describe("일기 목록 라우팅 테스트", () => {
   test.beforeEach(async ({ page }) => {
     // 테스트용 일기 데이터를 로컬스토리지에 설정
     await page.goto("/diaries");
 
     await page.evaluate(() => {
+      // 테스트 환경에서 로그인 상태로 설정
+      window.__TEST_BYPASS__ = true;
+
+      // 로그인 상태 설정
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "1",
+          email: "test@example.com",
+          name: "테스트 사용자",
+        })
+      );
+
       const testDiaries = [
         {
           id: 1,
@@ -170,5 +191,45 @@ test.describe("일기 목록 라우팅 테스트", () => {
     const thirdCard = page.locator('[class*="diaryCard"]').nth(2);
     await thirdCard.click();
     await expect(page).toHaveURL("/diaries/3");
+  });
+
+  test("비로그인 사용자 - 일기 카드 클릭 시 로그인 요청 모달 노출", async ({
+    page,
+  }) => {
+    // 콘솔 로그 수집
+    page.on("console", (msg) => console.log("PAGE LOG:", msg.text()));
+
+    // 테스트 환경에서 비회원 가드 테스트를 위해 window.__TEST_BYPASS__를 false로 설정
+    await page.evaluate(() => {
+      window.__TEST_BYPASS__ = false;
+      // 로컬스토리지에서 로그인 정보 제거
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("user");
+    });
+
+    await page.goto("/diaries");
+    await page.waitForSelector('[data-testid="diary-write-button"]');
+
+    // 첫 번째 일기 카드 클릭
+    const firstCard = page.locator('[class*="diaryCard"]').first();
+    await firstCard.click();
+
+    // 잠시 대기
+    await page.waitForTimeout(1000);
+
+    // 페이지의 모든 텍스트 확인
+    const allText = await page.textContent("body");
+    console.log("Page content:", allText);
+
+    // 로그인 요청 모달이 노출되는지 확인 (더 긴 대기 시간)
+    await expect(page.locator("text=로그인이 필요합니다")).toBeVisible({
+      timeout: 5000,
+    });
+    await expect(page.locator("text=로그인 후 이용해 주세요.")).toBeVisible({
+      timeout: 1000,
+    });
+    await expect(page.locator("text=로그인하러가기")).toBeVisible({
+      timeout: 1000,
+    });
   });
 });

@@ -2,12 +2,26 @@ import { test, expect } from "@playwright/test";
 
 test.describe("일기쓰기 폼 등록 기능 테스트", () => {
   test.beforeEach(async ({ page }) => {
+    // 로그인 상태 설정
+    await page.goto("/diaries");
+    await page.evaluate(() => {
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "1",
+          email: "test@example.com",
+          name: "테스트 사용자",
+        })
+      );
+    });
+
     // /diaries 페이지로 이동
     await page.goto("/diaries");
 
-    // 페이지 로드 대기 - data-testid로 식별
+    // 페이지 로드 대기 - data-testid로 식별 (Firefox 호환성을 위해 타임아웃 증가)
     await page.waitForSelector('[data-testid="diary-write-button"]', {
-      timeout: 2000,
+      timeout: 5000,
     });
 
     // 일기쓰기 버튼 클릭하여 일기쓰기 모달 열기

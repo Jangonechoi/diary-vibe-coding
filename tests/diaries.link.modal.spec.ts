@@ -1,6 +1,22 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("일기쓰기 모달 테스트", () => {
+  test.beforeEach(async ({ page }) => {
+    // 로그인 상태 설정
+    await page.goto("/diaries");
+    await page.evaluate(() => {
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "1",
+          email: "test@example.com",
+          name: "테스트 사용자",
+        })
+      );
+    });
+  });
+
   test("일기쓰기 버튼 클릭 시 모달이 열린다", async ({ page }) => {
     // /diaries 페이지로 이동
     await page.goto("/diaries");

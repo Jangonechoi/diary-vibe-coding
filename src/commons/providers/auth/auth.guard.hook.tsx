@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "./auth.provider";
 import { useModal } from "../modal/modal.provider";
@@ -51,15 +51,22 @@ export function useAuthGuard(): AuthGuardHookReturn {
   const { isAuthenticated, isLoading } = useAuth();
   const { openModal, closeModal } = useModal();
 
+  // 모달 중복 표시 방지를 위한 상태
+  const [isModalShown, setIsModalShown] = useState(false);
+
   /**
    * 테스트 환경 여부 확인
-   * 클라이언트 사이드에서 NEXT_PUBLIC_TEST_ENV 환경변수를 확인합니다.
+   * 클라이언트 사이드에서 NEXT_PUBLIC_TEST_ENV 환경변수와 window.__TEST_BYPASS__ 플래그를 확인합니다.
    * 서버 사이드에서는 항상 false를 반환하여 권한 검증을 수행합니다.
    */
   const isTestEnvironment = useCallback(() => {
     // 클라이언트 사이드에서 환경변수 확인
     if (typeof window !== "undefined") {
-      return process.env.NEXT_PUBLIC_TEST_ENV === "test";
+      return (
+        process.env.NEXT_PUBLIC_TEST_ENV === "test" ||
+        (window as unknown as { __TEST_BYPASS__?: boolean }).__TEST_BYPASS__ !==
+          undefined
+      );
     }
     // 서버 사이드에서는 false (SSR 시에는 권한 검증 수행)
     return false;
@@ -83,13 +90,21 @@ export function useAuthGuard(): AuthGuardHookReturn {
   const handleModalClose = useCallback(() => {
     // 로그인 모달 닫기
     closeModal();
+    setIsModalShown(false);
   }, [closeModal]);
 
   /**
    * 로그인 모달 표시
    * 권한이 없는 사용자에게 로그인을 요청하는 모달을 표시합니다.
+   * 중복 표시를 방지합니다.
    */
   const showLoginModal = useCallback(() => {
+    // 이미 모달이 표시되어 있으면 중복 표시 방지
+    if (isModalShown) {
+      console.log("AuthGuard: 모달이 이미 표시되어 있음 - 중복 표시 방지");
+      return;
+    }
+
     const modalContent = (
       <Modal
         variant="info"
@@ -105,7 +120,8 @@ export function useAuthGuard(): AuthGuardHookReturn {
     );
 
     openModal(modalContent);
-  }, [openModal, handleLoginConfirm, handleModalClose]);
+    setIsModalShown(true);
+  }, [openModal, handleLoginConfirm, handleModalClose, isModalShown]);
 
   /**
    * 권한 검증 함수
@@ -137,12 +153,11 @@ export function useAuthGuard(): AuthGuardHookReturn {
             showLoginModal();
             return false;
           }
-        } else {
-          // 테스트 환경에서 기본적으로 로그인 검사 패스
-          console.log("AuthGuard: 테스트 환경 - 로그인 검사 패스");
-          await action();
-          return true;
         }
+        // 테스트 환경에서 기본적으로 로그인 검사 패스 (window.__TEST_BYPASS__가 true이거나 undefined인 경우)
+        console.log("AuthGuard: 테스트 환경 - 로그인 검사 패스");
+        await action();
+        return true;
       }
 
       // 실제 환경에서는 항상 권한 검증 수행

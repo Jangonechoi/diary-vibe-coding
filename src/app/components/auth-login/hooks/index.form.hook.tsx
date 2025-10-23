@@ -169,6 +169,8 @@ export const useAuthLoginForm = () => {
             onConfirm={() => {
               closeModal();
               router.push(URLS.DIARIES.path);
+              // 모달 확인 후 isSubmitting을 false로 설정
+              setIsSubmitting(false);
             }}
           />
         );
@@ -185,6 +187,8 @@ export const useAuthLoginForm = () => {
             onConfirm={() => {
               closeModal();
               router.push(URLS.DIARIES.path);
+              // 모달 확인 후 isSubmitting을 false로 설정
+              setIsSubmitting(false);
             }}
           />
         );
@@ -202,12 +206,15 @@ export const useAuthLoginForm = () => {
           confirmText="확인"
           onConfirm={() => {
             closeModal();
+            // 모달 확인 후 isSubmitting을 false로 설정
+            setIsSubmitting(false);
           }}
         />
       );
     },
     onSettled: () => {
-      setIsSubmitting(false);
+      // onSettled에서는 isSubmitting을 설정하지 않음
+      // 각 콜백에서 직접 관리
     },
   });
 

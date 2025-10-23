@@ -74,7 +74,7 @@ export default defineConfig({
     }`,
     reuseExistingServer: !process.env.CI,
     env: {
-      NEXT_PUBLIC_TEST_ENV: "test",
+      // NEXT_PUBLIC_TEST_ENV: "test", // 테스트 환경 변수 제거하여 실제 환경처럼 동작하도록 함
     },
   },
 });

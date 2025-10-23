@@ -42,7 +42,7 @@ test.describe("Layout 인증 상태 UI 테스트", () => {
 
     // 사용자 이름 표시 확인
     const userName = page.locator('[data-testid="layout-user-name"]');
-    await expect(userName).toHaveText("홍길동");
+    await expect(userName).toHaveText("테스트 사용자");
 
     // 로그아웃 버튼 표시 확인
     const logoutButton = page.locator('[data-testid="layout-logout-button"]');
@@ -115,7 +115,7 @@ test.describe("Layout 인증 상태 UI 테스트", () => {
     // 첫 번째 사용자 이름 확인
     const authStatus = page.locator('[data-testid="layout-auth-status"]');
     const userName = page.locator('[data-testid="layout-user-name"]');
-    await expect(userName).toHaveText("김철수");
+    await expect(userName).toHaveText("테스트 사용자 1");
 
     // 두 번째 사용자로 변경
     await page.evaluate(() => {
@@ -139,7 +139,7 @@ test.describe("Layout 인증 상태 UI 테스트", () => {
     });
 
     // 두 번째 사용자 이름 확인
-    await expect(userName).toHaveText("이영희");
+    await expect(userName).toHaveText("테스트 사용자 2");
   });
 
   test("로그아웃 후 다시 로그인 시 인증 상태 UI 정상 동작", async ({
@@ -202,7 +202,7 @@ test.describe("Layout 인증 상태 UI 테스트", () => {
     await expect(newAuthStatus).toBeVisible();
 
     const newUserName = page.locator('[data-testid="layout-user-name"]');
-    await expect(newUserName).toHaveText("박민수");
+    await expect(newUserName).toHaveText("테스트 사용자 3");
   });
 
   test("인증 상태 UI 스타일링 확인", async ({ page }) => {

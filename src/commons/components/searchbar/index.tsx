@@ -1,20 +1,26 @@
-'use client';
+"use client";
 
-import React, { InputHTMLAttributes, ReactNode, forwardRef, useState } from 'react';
-import Image from 'next/image';
-import styles from './styles.module.css';
+import React, {
+  InputHTMLAttributes,
+  ReactNode,
+  forwardRef,
+  useState,
+} from "react";
+import Image from "next/image";
+import styles from "./styles.module.css";
 
 /**
  * Searchbar Variant Types
  */
-export type SearchbarVariant = 'primary' | 'secondary' | 'tertiary';
-export type SearchbarSize = 'small' | 'medium' | 'large';
-export type SearchbarTheme = 'light' | 'dark';
+export type SearchbarVariant = "primary" | "secondary" | "tertiary";
+export type SearchbarSize = "small" | "medium" | "large";
+export type SearchbarTheme = "light" | "dark";
 
 /**
  * Searchbar Component Props
  */
-export interface SearchbarProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
+export interface SearchbarProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
   /**
    * 검색바의 시각적 스타일 변형
    * @default 'primary'
@@ -94,18 +100,18 @@ export interface SearchbarProps extends Omit<InputHTMLAttributes<HTMLInputElemen
 export const Searchbar = forwardRef<HTMLInputElement, SearchbarProps>(
   (
     {
-      variant = 'primary',
-      size = 'medium',
-      theme = 'light',
+      variant = "primary",
+      size = "medium",
+      theme = "light",
       fullWidth = false,
       onSearch,
       showSearchIcon = true,
       showClearButton = true,
       rightIcon,
-      className = '',
-      wrapperClassName = '',
+      className = "",
+      wrapperClassName = "",
       disabled = false,
-      placeholder = '검색어를 입력해 주세요.',
+      placeholder = "검색어를 입력해 주세요.",
       value: controlledValue,
       onChange,
       ...rest
@@ -113,16 +119,21 @@ export const Searchbar = forwardRef<HTMLInputElement, SearchbarProps>(
     ref
   ) => {
     const [isFocused, setIsFocused] = useState(false);
-    const [internalValue, setInternalValue] = useState('');
+    const [internalValue, setInternalValue] = useState("");
 
     // controlled vs uncontrolled
-    const value = controlledValue !== undefined ? controlledValue : internalValue;
+    const value =
+      controlledValue !== undefined ? controlledValue : internalValue;
     const hasValue = value ? String(value).length > 0 : false;
 
     // wrapper 클래스명 조합
-    const wrapperClasses = [styles.wrapper, fullWidth && styles.fullWidth, wrapperClassName]
+    const wrapperClasses = [
+      styles.wrapper,
+      fullWidth && styles.fullWidth,
+      wrapperClassName,
+    ]
       .filter(Boolean)
-      .join(' ');
+      .join(" ");
 
     // searchbar container 클래스명 조합
     const containerClasses = [
@@ -133,13 +144,13 @@ export const Searchbar = forwardRef<HTMLInputElement, SearchbarProps>(
       isFocused && styles.focused,
       disabled && styles.disabled,
       showSearchIcon && styles.hasSearchIcon,
-      (hasValue && showClearButton) || rightIcon ? styles.hasRightIcon : '',
+      (hasValue && showClearButton) || rightIcon ? styles.hasRightIcon : "",
     ]
       .filter(Boolean)
-      .join(' ');
+      .join(" ");
 
     // input 클래스명 조합
-    const inputClasses = [styles.input, className].filter(Boolean).join(' ');
+    const inputClasses = [styles.input, className].filter(Boolean).join(" ");
 
     // 검색 실행
     const handleSearch = () => {
@@ -150,7 +161,7 @@ export const Searchbar = forwardRef<HTMLInputElement, SearchbarProps>(
 
     // Enter 키 처리
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === 'Enter') {
+      if (e.key === "Enter") {
         handleSearch();
       }
     };
@@ -159,11 +170,11 @@ export const Searchbar = forwardRef<HTMLInputElement, SearchbarProps>(
     const handleClear = () => {
       if (controlledValue !== undefined && onChange) {
         const event = {
-          target: { value: '' },
+          target: { value: "" },
         } as React.ChangeEvent<HTMLInputElement>;
         onChange(event);
       } else {
-        setInternalValue('');
+        setInternalValue("");
       }
     };
 
@@ -182,7 +193,7 @@ export const Searchbar = forwardRef<HTMLInputElement, SearchbarProps>(
         <div className={containerClasses}>
           {showSearchIcon && (
             <button
-              type="button"
+              type="submit"
               className={styles.searchIconButton}
               onClick={handleSearch}
               disabled={disabled}
@@ -234,6 +245,6 @@ export const Searchbar = forwardRef<HTMLInputElement, SearchbarProps>(
   }
 );
 
-Searchbar.displayName = 'Searchbar';
+Searchbar.displayName = "Searchbar";
 
 export default Searchbar;

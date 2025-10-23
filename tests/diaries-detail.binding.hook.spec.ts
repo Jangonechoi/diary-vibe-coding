@@ -2,9 +2,10 @@ import { test, expect } from "@playwright/test";
 
 test.describe("일기 상세 바인딩 훅 테스트", () => {
   test.beforeEach(async ({ page }) => {
-    // 테스트용 일기 데이터를 로컬스토리지에 설정
+    // 먼저 일기 목록 페이지로 이동하여 페이지 로드
     await page.goto("/diaries");
 
+    // 테스트용 일기 데이터를 로컬스토리지에 설정
     await page.evaluate(() => {
       const testDiaries = [
         {
@@ -32,6 +33,15 @@ test.describe("일기 상세 바인딩 훅 테스트", () => {
         },
       ];
       localStorage.setItem("diaries", JSON.stringify(testDiaries));
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "1",
+          email: "test@example.com",
+          name: "테스트 사용자",
+        })
+      );
     });
   });
 

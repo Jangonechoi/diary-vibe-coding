@@ -74,3 +74,60 @@ export const EMOTION_KEYS = Object.keys(EMOTION) as EmotionType[];
 export const isEmotionType = (value: unknown): value is EmotionType => {
   return typeof value === "string" && value in EMOTION;
 };
+
+/**
+ * 필터 타입 정의
+ */
+export type FilterType = "default" | "horizontal" | "vertical";
+
+/**
+ * 필터 데이터 인터페이스
+ */
+export interface FilterData {
+  label: string;
+  imageSize: {
+    width: number;
+    height: number;
+  };
+}
+
+/**
+ * 필터 Enum 데이터
+ *
+ * 각 필터는 화면에 표시될 텍스트와 이미지 크기를 포함합니다.
+ */
+export const FILTER: Record<FilterType, FilterData> = {
+  default: {
+    label: "기본",
+    imageSize: {
+      width: 640,
+      height: 640,
+    },
+  },
+  horizontal: {
+    label: "가로형",
+    imageSize: {
+      width: 640,
+      height: 480,
+    },
+  },
+  vertical: {
+    label: "세로형",
+    imageSize: {
+      width: 480,
+      height: 640,
+    },
+  },
+} as const;
+
+/**
+ * 필터 키 배열
+ */
+export const FILTER_KEYS = Object.keys(FILTER) as FilterType[];
+
+/**
+ * 필터 타입 가드 함수
+ */
+export const isFilterType = (value: unknown): value is FilterType => {
+  return typeof value === "string" && value in FILTER;
+};

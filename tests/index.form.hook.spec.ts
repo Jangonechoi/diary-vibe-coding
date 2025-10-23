@@ -2,6 +2,52 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Auth Login Form Hook", () => {
   test.beforeEach(async ({ page }) => {
+    // API 모킹 설정
+    await page.route("**/api/graphql", async (route) => {
+      const request = route.request();
+      const postData = JSON.parse(request.postData() || "{}");
+
+      // 로그인 API 모킹
+      if (postData.query?.includes("loginUser")) {
+        await route.fulfill({
+          status: 200,
+          contentType: "application/json",
+          body: JSON.stringify({
+            data: {
+              loginUser: {
+                accessToken: "mock-access-token",
+              },
+            },
+          }),
+        });
+        return;
+      }
+
+      // 사용자 정보 조회 API 모킹
+      if (postData.query?.includes("fetchUserLoggedIn")) {
+        await route.fulfill({
+          status: 200,
+          contentType: "application/json",
+          body: JSON.stringify({
+            data: {
+              fetchUserLoggedIn: {
+                _id: "mock-user-id",
+                name: "테스트 사용자",
+              },
+            },
+          }),
+        });
+        return;
+      }
+
+      // 기본 응답
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({ data: {} }),
+      });
+    });
+
     // /auth/login 페이지로 이동
     await page.goto("/auth/login");
 

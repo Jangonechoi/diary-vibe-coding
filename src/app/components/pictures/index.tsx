@@ -1,9 +1,11 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
-import { Selectbox, SelectboxOption } from "@/commons/components/selectbox";
+import { Selectbox } from "@/commons/components/selectbox";
 import { useBindingPictures } from "./hooks/index.binding.hook";
+import { useFilter } from "./hooks/index.filter.hook";
+import { FilterType } from "@/commons/constants/enum";
 import styles from "./styles.module.css";
 
 /**
@@ -20,17 +22,8 @@ import styles from "./styles.module.css";
  * - 이미지 카드: 640 x 640px, cornerRadius: 24px, gap: 40px
  */
 export default function Pictures() {
-  const [selectedFilter, setSelectedFilter] = useState<string | number>(
-    "default"
-  );
-
-  // 필터 옵션 (Figma 디자인 기반)
-  const filterOptions: SelectboxOption[] = [
-    { value: "default", label: "기본" },
-    { value: "recent", label: "최신순" },
-    { value: "popular", label: "인기순" },
-    { value: "name", label: "이름순" },
-  ];
+  // 필터 기능 훅 사용
+  const { selectedFilter, imageSize, setFilter, filterOptions } = useFilter();
 
   // 강아지 사진 데이터 바인딩
   const {
@@ -78,7 +71,7 @@ export default function Pictures() {
           size="medium"
           options={filterOptions}
           value={selectedFilter}
-          onValueChange={setSelectedFilter}
+          onValueChange={(value) => setFilter(value as FilterType)}
           className={styles.selectbox}
           data-testid="pictures-filter-selectbox"
         />
@@ -95,6 +88,10 @@ export default function Pictures() {
             <div
               key={`splash-${index}`}
               className={styles.splashScreen}
+              style={{
+                width: `${imageSize.width}px`,
+                height: `${imageSize.height}px`,
+              }}
               data-testid="splash-screen"
             />
           ))}
@@ -115,13 +112,17 @@ export default function Pictures() {
             <div
               key={image.id}
               className={styles.imageCard}
+              style={{
+                width: `${imageSize.width}px`,
+                height: `${imageSize.height}px`,
+              }}
               ref={index === dogImages.length - 2 ? observerRef : null}
             >
               <Image
                 src={image.url}
                 alt={image.alt}
-                width={640}
-                height={640}
+                width={imageSize.width}
+                height={imageSize.height}
                 className={styles.image}
               />
             </div>
@@ -133,6 +134,10 @@ export default function Pictures() {
             <div
               key={`loading-${index}`}
               className={styles.splashScreen}
+              style={{
+                width: `${imageSize.width}px`,
+                height: `${imageSize.height}px`,
+              }}
               data-testid="splash-screen"
             />
           ))}

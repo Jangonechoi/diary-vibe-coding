@@ -1,8 +1,38 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
-test.describe('Layout 영역 노출 테스트', () => {
-  test('일기목록 페이지 - 모든 영역 노출', async ({ page }) => {
-    await page.goto('/diaries');
+test.describe("Layout 영역 노출 테스트", () => {
+  test.beforeEach(async ({ page }) => {
+    // 먼저 페이지를 로드한 후 로컬스토리지 설정
+    await page.goto("/diaries");
+
+    // 로그인 상태 설정
+    await page.evaluate(() => {
+      localStorage.setItem("accessToken", "test-token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: "1",
+          email: "test@example.com",
+          name: "테스트 사용자",
+        })
+      );
+
+      // 테스트용 일기 데이터 설정
+      const testDiaries = [
+        {
+          id: 1,
+          title: "테스트 일기",
+          content: "테스트 일기 내용입니다.",
+          emotion: "Happy",
+          createdAt: "2024-01-01T00:00:00.000Z",
+        },
+      ];
+      localStorage.setItem("diaries", JSON.stringify(testDiaries));
+    });
+  });
+
+  test("일기목록 페이지 - 모든 영역 노출", async ({ page }) => {
+    await page.goto("/diaries");
     await page.waitForSelector('[data-testid="layout-header"]');
 
     // header 영역 노출 확인
@@ -26,9 +56,9 @@ test.describe('Layout 영역 노출 테스트', () => {
     await expect(footer).toBeVisible();
   });
 
-  test('일기 상세 페이지 - header, logo, footer만 노출', async ({ page }) => {
+  test("일기 상세 페이지 - header, logo, footer만 노출", async ({ page }) => {
     // 일기 상세 페이지로 이동 (예시 ID: 1)
-    await page.goto('/diaries/1');
+    await page.goto("/diaries/1");
     await page.waitForSelector('[data-testid="layout-header"]');
 
     // header 영역 노출 확인
@@ -52,8 +82,8 @@ test.describe('Layout 영역 노출 테스트', () => {
     await expect(footer).toBeVisible();
   });
 
-  test('일기 작성 페이지 - header, logo, footer만 노출', async ({ page }) => {
-    await page.goto('/diaries/new');
+  test("일기 작성 페이지 - header, logo, footer만 노출", async ({ page }) => {
+    await page.goto("/diaries/new");
     await page.waitForSelector('[data-testid="layout-header"]');
 
     // header 영역 노출 확인
@@ -77,9 +107,11 @@ test.describe('Layout 영역 노출 테스트', () => {
     await expect(footer).toBeVisible();
   });
 
-  test('일기목록에서 상세로 이동 후 다시 목록으로 이동 - 영역 노출 정상 동작', async ({ page }) => {
+  test("일기목록에서 상세로 이동 후 다시 목록으로 이동 - 영역 노출 정상 동작", async ({
+    page,
+  }) => {
     // 일기목록 페이지
-    await page.goto('/diaries');
+    await page.goto("/diaries");
     await page.waitForSelector('[data-testid="layout-header"]');
 
     const banner = page.locator('[data-testid="layout-banner"]');
@@ -90,7 +122,7 @@ test.describe('Layout 영역 노출 테스트', () => {
     await expect(navigation).toBeVisible();
 
     // 일기 상세 페이지로 이동
-    await page.goto('/diaries/1');
+    await page.goto("/diaries/1");
     await page.waitForSelector('[data-testid="layout-header"]');
 
     // 일기 상세: banner, navigation 미노출
@@ -98,7 +130,7 @@ test.describe('Layout 영역 노출 테스트', () => {
     await expect(navigation).not.toBeVisible();
 
     // 다시 일기목록으로 이동
-    await page.goto('/diaries');
+    await page.goto("/diaries");
     await page.waitForSelector('[data-testid="layout-header"]');
 
     // 일기목록: banner, navigation 노출

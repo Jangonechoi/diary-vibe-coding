@@ -1,12 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "./styles.module.css";
 import { Button } from "@/commons/components/button";
 import { Input } from "@/commons/components/input";
 import { EMOTION } from "@/commons/constants/enum";
 import { useBindingDiary } from "./hooks/index.binding.hook";
+import {
+  useRetrospectForm,
+  RetrospectData,
+} from "./hooks/index.retrospect.form.hook";
 
 interface DiariesDetailProps {
   diaryId?: string;
@@ -14,14 +18,33 @@ interface DiariesDetailProps {
 
 const DiariesDetail: React.FC<DiariesDetailProps> = ({ diaryId }) => {
   const { diary } = useBindingDiary(diaryId);
-  const [retrospectText, setRetrospectText] = useState("");
-  const [retrospects, setRetrospects] = useState<
-    Array<{
-      id: string;
-      text: string;
-      createdAt: string;
-    }>
-  >([]);
+  const [retrospects, setRetrospects] = useState<RetrospectData[]>([]);
+
+  // 회고쓰기 폼 훅 사용
+  const { form, onSubmit, isSubmitEnabled } = useRetrospectForm(
+    diaryId ? parseInt(diaryId) : 0
+  );
+
+  // 로컬스토리지에서 회고 데이터 로드
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const stored = localStorage.getItem("retrospects");
+        if (stored) {
+          const allRetrospects: RetrospectData[] = JSON.parse(stored);
+          const diaryRetrospects = allRetrospects.filter(
+            (r) => r.diaryId === parseInt(diaryId || "0")
+          );
+          setRetrospects(diaryRetrospects);
+        }
+      } catch (error) {
+        console.error(
+          "로컬스토리지에서 회고 데이터를 로드하는 중 오류:",
+          error
+        );
+      }
+    }
+  }, [diaryId]);
 
   // diary가 없을 때 처리
   if (!diary) {
@@ -52,27 +75,10 @@ const DiariesDetail: React.FC<DiariesDetailProps> = ({ diaryId }) => {
     console.log("삭제 버튼 클릭");
   };
 
-  const handleRetrospectSubmit = () => {
-    if (retrospectText.trim()) {
-      const newRetrospect = {
-        id: Date.now().toString(),
-        text: retrospectText.trim(),
-        createdAt: new Date()
-          .toLocaleDateString("ko-KR", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-          })
-          .replace(/\./g, ". ")
-          .replace(/\s+/g, " ")
-          .trim()
-          .replace(/\.$/, ""),
-      };
-      setRetrospects([newRetrospect, ...retrospects]);
-      setRetrospectText("");
-    }
-  };
+  // 폼 제출 핸들러
+  const handleRetrospectSubmit = form.handleSubmit(onSubmit);
 
+  // Enter 키 핸들러
   const handleRetrospectKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       handleRetrospectSubmit();
@@ -178,8 +184,7 @@ const DiariesDetail: React.FC<DiariesDetailProps> = ({ diaryId }) => {
             theme="light"
             size="medium"
             placeholder="회고를 남겨보세요."
-            value={retrospectText}
-            onChange={(e) => setRetrospectText(e.target.value)}
+            {...form.register("content")}
             onKeyPress={handleRetrospectKeyPress}
             className={styles.retrospectInputField}
           />
@@ -188,6 +193,7 @@ const DiariesDetail: React.FC<DiariesDetailProps> = ({ diaryId }) => {
             theme="light"
             size="medium"
             onClick={handleRetrospectSubmit}
+            disabled={!isSubmitEnabled}
             className={styles.retrospectSubmitButton}
           >
             입력
@@ -199,8 +205,21 @@ const DiariesDetail: React.FC<DiariesDetailProps> = ({ diaryId }) => {
       <div className={styles.retrospectList}>
         {retrospects.map((retrospect) => (
           <div key={retrospect.id} className={styles.retrospectItem}>
-            <p className={styles.retrospectText}>{retrospect.text}</p>
-            <p className={styles.retrospectDate}>[{retrospect.createdAt}]</p>
+            <p className={styles.retrospectText}>{retrospect.content}</p>
+            <p className={styles.retrospectDate}>
+              [
+              {new Date(retrospect.createdAt)
+                .toLocaleDateString("ko-KR", {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                })
+                .replace(/\./g, ". ")
+                .replace(/\s+/g, " ")
+                .trim()
+                .replace(/\.$/, "")}
+              ]
+            </p>
           </div>
         ))}
       </div>

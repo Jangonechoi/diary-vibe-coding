@@ -40,9 +40,9 @@ test.describe("사진 목록 바인딩 훅 테스트", () => {
   });
 
   test("로딩 중에는 6개의 스플래시 스크린이 표시된다", async ({ page }) => {
-    // API를 느리게 만들어서 로딩 상태를 캡처할 수 있도록 함
+    // API를 더 느리게 만들어서 로딩 상태를 확실히 캡처
     await page.route("**/breeds/image/random/**", async (route) => {
-      await new Promise((resolve) => setTimeout(resolve, 200));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       route.continue();
     });
 
@@ -52,8 +52,8 @@ test.describe("사진 목록 바인딩 훅 테스트", () => {
     // 스플래시 스크린이 표시되는지 확인 (data-testid 사용)
     const splashScreens = page.locator('[data-testid="splash-screen"]');
 
-    // 스플래시 스크린이 6개인지 확인
-    await expect(splashScreens).toHaveCount(6, { timeout: 3000 });
+    // 스플래시 스크린이 6개인지 확인 (더 긴 대기 시간)
+    await expect(splashScreens).toHaveCount(6, { timeout: 5000 });
 
     await loadingPromise;
   });

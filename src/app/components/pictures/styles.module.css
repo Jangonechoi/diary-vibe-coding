@@ -45,13 +45,12 @@
   padding-bottom: 80px;
 }
 
-/* Image Card: 640 x 640, cornerRadius: 24px, background: CSS 변수 토큰 사용 */
+/* Image Card: 동적 크기 조정, cornerRadius: 24px, background: CSS 변수 토큰 사용 */
 .imageCard {
-  width: 640px;
-  height: 640px;
   border-radius: 24px;
   overflow: hidden;
   background-color: var(--border-default);
+  /* 크기는 JavaScript에서 동적으로 설정 */
 }
 
 .image {
