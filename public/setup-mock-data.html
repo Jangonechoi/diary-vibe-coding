@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>일기 Mock 데이터 설정</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      .container {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #333;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+      .section {
+        margin-bottom: 30px;
+        padding: 20px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        background-color: #fafafa;
+      }
+      .section h2 {
+        color: #555;
+        margin-top: 0;
+        margin-bottom: 15px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+        color: #333;
+      }
+      input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+      }
+      button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        transition: background-color 0.2s;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      button.danger {
+        background-color: #dc3545;
+      }
+      button.danger:hover {
+        background-color: #c82333;
+      }
+      button.success {
+        background-color: #28a745;
+      }
+      button.success:hover {
+        background-color: #218838;
+      }
+      .status {
+        margin-top: 15px;
+        padding: 10px;
+        border-radius: 4px;
+        font-weight: 500;
+      }
+      .status.success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+      .status.error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+      .status.info {
+        background-color: #d1ecf1;
+        color: #0c5460;
+        border: 1px solid #bee5eb;
+      }
+      .console-output {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+        padding: 15px;
+        border-radius: 4px;
+        font-family: "Courier New", monospace;
+        font-size: 14px;
+        max-height: 300px;
+        overflow-y: auto;
+        white-space: pre-wrap;
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        margin-top: 15px;
+      }
+      .stat-card {
+        background: white;
+        padding: 15px;
+        border-radius: 6px;
+        text-align: center;
+        border: 1px solid #e0e0e0;
+      }
+      .stat-number {
+        font-size: 24px;
+        font-weight: bold;
+        color: #007bff;
+      }
+      .stat-label {
+        font-size: 14px;
+        color: #666;
+        margin-top: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>📝 일기 Mock 데이터 설정</h1>
+
+      <div class="section">
+        <h2>데이터 생성</h2>
+        <div class="form-group">
+          <label for="dataCount">생성할 일기 개수:</label>
+          <input type="number" id="dataCount" value="50" min="1" max="1000" />
+        </div>
+        <button onclick="generateMockData()" class="success">
+          📊 Mock 데이터 생성
+        </button>
+        <button onclick="generateLargeDataset()" class="success">
+          📈 대용량 데이터 생성 (200개)
+        </button>
+        <div id="generateStatus"></div>
+      </div>
+
+      <div class="section">
+        <h2>데이터 관리</h2>
+        <button onclick="checkCurrentData()" class="success">
+          📋 현재 데이터 확인
+        </button>
+        <button onclick="clearAllData()" class="danger">
+          🗑️ 모든 데이터 삭제
+        </button>
+        <button onclick="exportData()" class="success">
+          💾 데이터 내보내기
+        </button>
+        <button onclick="importData()" class="success">
+          📥 데이터 가져오기
+        </button>
+        <div id="manageStatus"></div>
+      </div>
+
+      <div class="section">
+        <h2>현재 상태</h2>
+        <div id="currentStats"></div>
+        <div
+          id="consoleOutput"
+          class="console-output"
+          style="display: none"
+        ></div>
+      </div>
+    </div>
+
+    <script>
+      // Mock 데이터 생성 함수
+      function generateMockDiaries(count = 50) {
+        const EMOTION_TYPES = ["Happy", "Sad", "Angry", "Surprise", "Etc"];
+
+        const titles = [
+          "오늘의 하루",
+          "기분 좋은 날",
+          "힘든 하루",
+          "새로운 시작",
+          "추억이 되는 날",
+          "특별한 순간",
+          "평범한 하루",
+          "감동적인 하루",
+          "복잡한 마음",
+          "평화로운 하루",
+          "바쁜 하루",
+          "여유로운 하루",
+          "즐거운 하루",
+          "피곤한 하루",
+          "신나는 하루",
+          "조용한 하루",
+          "활기찬 하루",
+          "차분한 하루",
+          "밝은 하루",
+          "어두운 하루",
+          "따뜻한 하루",
+          "차가운 하루",
+          "달콤한 하루",
+          "쓴 하루",
+          "맛있는 하루",
+          "배고픈 하루",
+          "배부른 하루",
+          "목마른 하루",
+          "시원한 하루",
+          "뜨거운 하루",
+        ];
+
+        const contents = [
+          "오늘은 정말 특별한 하루였어요. 아침에 일어나서 창밖을 보니 날씨가 정말 좋았고, 마음도 한결 가벼워졌어요.",
+          "오늘 하루 종일 기분이 좋았어요. 친구들과 함께 시간을 보내면서 정말 즐거웠어요.",
+          "오늘은 조금 힘든 하루였어요. 하지만 그럼에도 불구하고 작은 기쁨들을 찾을 수 있었어요.",
+          "새로운 도전을 시작한 하루였어요. 조금은 두렵지만 설레기도 해요.",
+          "오늘은 정말 감동적인 하루였어요. 예상치 못한 일들이 일어나면서 마음이 따뜻해졌어요.",
+          "평범한 하루였지만 그 평범함이 소중하게 느껴졌어요. 작은 행복들을 발견할 수 있었어요.",
+          "오늘은 정말 바쁜 하루였어요. 하지만 그 바쁨 속에서도 의미 있는 일들을 할 수 있었어요.",
+          "여유로운 하루였어요. 책을 읽고 음악을 들으며 마음의 평화를 찾을 수 있었어요.",
+          "오늘은 정말 즐거운 하루였어요. 웃음이 끊이지 않았고, 마음이 가벼워졌어요.",
+          "조금 피곤한 하루였지만, 그 피로도 의미 있는 것들이라 생각해요.",
+          "오늘은 정말 신나는 하루였어요. 새로운 경험을 하면서 정말 즐거웠어요.",
+          "조용한 하루였어요. 혼자만의 시간을 보내면서 마음의 안정을 찾을 수 있었어요.",
+          "활기찬 하루였어요. 에너지가 넘쳐서 정말 좋았어요.",
+          "차분한 하루였어요. 마음이 평온했고, 작은 것들에도 감사할 수 있었어요.",
+          "오늘은 정말 밝은 하루였어요. 햇살이 마음까지 따뜻하게 해주었어요.",
+          "조금 어두운 하루였지만, 그 어둠 속에서도 희망을 찾을 수 있었어요.",
+          "따뜻한 하루였어요. 사람들의 따뜻함을 느낄 수 있었어요.",
+          "차가운 하루였지만, 그 차가움 속에서도 따뜻한 마음을 유지할 수 있었어요.",
+          "달콤한 하루였어요. 작은 기쁨들이 마음을 달콤하게 해주었어요.",
+          "조금 쓴 하루였지만, 그 쓴맛도 인생의 한 부분이라고 생각해요.",
+        ];
+
+        const mockDiaries = [];
+
+        for (let i = 1; i <= count; i++) {
+          const randomEmotion =
+            EMOTION_TYPES[Math.floor(Math.random() * EMOTION_TYPES.length)];
+          const randomTitle = titles[Math.floor(Math.random() * titles.length)];
+          const randomContent =
+            contents[Math.floor(Math.random() * contents.length)];
+
+          // 날짜를 최근 6개월 내에서 랜덤하게 생성
+          const now = new Date();
+          const sixMonthsAgo = new Date(
+            now.getTime() - 6 * 30 * 24 * 60 * 60 * 1000
+          );
+          const randomDate = new Date(
+            sixMonthsAgo.getTime() +
+              Math.random() * (now.getTime() - sixMonthsAgo.getTime())
+          );
+
+          mockDiaries.push({
+            id: i,
+            title: `${randomTitle} ${i}`,
+            content: randomContent,
+            emotion: randomEmotion,
+            createdAt: randomDate.toISOString(),
+          });
+        }
+
+        // 날짜순으로 정렬 (최신순)
+        return mockDiaries.sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+      }
+
+      // Mock 데이터 생성
+      function generateMockData() {
+        const count = parseInt(document.getElementById("dataCount").value);
+        const mockDiaries = generateMockDiaries(count);
+
+        localStorage.setItem("diaries", JSON.stringify(mockDiaries));
+
+        showStatus(
+          "generateStatus",
+          `✅ ${count}개의 일기 mock 데이터가 생성되었습니다.`,
+          "success"
+        );
+        updateCurrentStats();
+        logToConsole(
+          `📊 ${count}개의 일기 mock 데이터가 로컬스토리지에 등록되었습니다.`
+        );
+      }
+
+      // 대용량 데이터 생성
+      function generateLargeDataset() {
+        const mockDiaries = generateMockDiaries(200);
+        localStorage.setItem("diaries", JSON.stringify(mockDiaries));
+
+        showStatus(
+          "generateStatus",
+          `✅ 200개의 대용량 일기 mock 데이터가 생성되었습니다.`,
+          "success"
+        );
+        updateCurrentStats();
+        logToConsole(
+          `📈 200개의 대용량 일기 mock 데이터가 로컬스토리지에 등록되었습니다.`
+        );
+      }
+
+      // 현재 데이터 확인
+      function checkCurrentData() {
+        const data = localStorage.getItem("diaries");
+        if (data) {
+          const diaries = JSON.parse(data);
+          showStatus(
+            "manageStatus",
+            `📋 현재 ${diaries.length}개의 일기가 저장되어 있습니다.`,
+            "info"
+          );
+          updateCurrentStats();
+          logToConsole(
+            `📋 현재 로컬스토리지에 저장된 일기 수: ${diaries.length}`
+          );
+        } else {
+          showStatus(
+            "manageStatus",
+            "📭 저장된 일기 데이터가 없습니다.",
+            "error"
+          );
+          updateCurrentStats();
+          logToConsole("📭 로컬스토리지에 일기 데이터가 없습니다.");
+        }
+      }
+
+      // 모든 데이터 삭제
+      function clearAllData() {
+        localStorage.removeItem("diaries");
+        showStatus(
+          "manageStatus",
+          "🗑️ 모든 일기 데이터가 삭제되었습니다.",
+          "success"
+        );
+        updateCurrentStats();
+        logToConsole("🗑️ 로컬스토리지의 일기 데이터가 제거되었습니다.");
+      }
+
+      // 데이터 내보내기
+      function exportData() {
+        const data = localStorage.getItem("diaries");
+        if (data) {
+          const blob = new Blob([data], { type: "application/json" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "diaries-backup.json";
+          a.click();
+          URL.revokeObjectURL(url);
+          showStatus(
+            "manageStatus",
+            "💾 데이터가 다운로드되었습니다.",
+            "success"
+          );
+          logToConsole("💾 일기 데이터가 다운로드되었습니다.");
+        } else {
+          showStatus("manageStatus", "📭 내보낼 데이터가 없습니다.", "error");
+        }
+      }
+
+      // 데이터 가져오기
+      function importData() {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = ".json";
+        input.onchange = function (e) {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              try {
+                const data = JSON.parse(e.target.result);
+                localStorage.setItem("diaries", JSON.stringify(data));
+                showStatus(
+                  "manageStatus",
+                  `📥 ${data.length}개의 일기 데이터가 가져와졌습니다.`,
+                  "success"
+                );
+                updateCurrentStats();
+                logToConsole(
+                  `📥 ${data.length}개의 일기 데이터가 가져와졌습니다.`
+                );
+              } catch (error) {
+                showStatus(
+                  "manageStatus",
+                  "❌ 잘못된 JSON 파일입니다.",
+                  "error"
+                );
+                logToConsole("❌ 잘못된 JSON 파일입니다.");
+              }
+            };
+            reader.readAsText(file);
+          }
+        };
+        input.click();
+      }
+
+      // 상태 메시지 표시
+      function showStatus(elementId, message, type) {
+        const element = document.getElementById(elementId);
+        element.innerHTML = `<div class="status ${type}">${message}</div>`;
+      }
+
+      // 현재 통계 업데이트
+      function updateCurrentStats() {
+        const data = localStorage.getItem("diaries");
+        const statsElement = document.getElementById("currentStats");
+
+        if (data) {
+          const diaries = JSON.parse(data);
+          const emotionStats = diaries.reduce((acc, diary) => {
+            acc[diary.emotion] = (acc[diary.emotion] || 0) + 1;
+            return acc;
+          }, {});
+
+          const statsHTML = `
+                    <div class="stats">
+                        <div class="stat-card">
+                            <div class="stat-number">${diaries.length}</div>
+                            <div class="stat-label">총 일기 수</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">${
+                              Object.keys(emotionStats).length
+                            }</div>
+                            <div class="stat-label">감정 종류</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">${Math.ceil(
+                              diaries.length / 12
+                            )}</div>
+                            <div class="stat-label">페이지 수</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <strong>감정별 분포:</strong><br>
+                        ${Object.entries(emotionStats)
+                          .map(([emotion, count]) => `${emotion}: ${count}개`)
+                          .join(", ")}
+                    </div>
+                `;
+          statsElement.innerHTML = statsHTML;
+        } else {
+          statsElement.innerHTML =
+            '<div class="status error">📭 저장된 데이터가 없습니다.</div>';
+        }
+      }
+
+      // 콘솔 출력
+      function logToConsole(message) {
+        const consoleElement = document.getElementById("consoleOutput");
+        consoleElement.style.display = "block";
+        consoleElement.textContent += message + "\n";
+        consoleElement.scrollTop = consoleElement.scrollHeight;
+      }
+
+      // 페이지 로드 시 초기 상태 확인
+      window.onload = function () {
+        updateCurrentStats();
+        logToConsole("🚀 일기 Mock 데이터 설정 페이지가 로드되었습니다.");
+      };
+    </script>
+  </body>
+</html>

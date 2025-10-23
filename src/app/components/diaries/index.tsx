@@ -7,12 +7,13 @@ import Button from "@/commons/components/button";
 import { Pagination } from "@/commons/components/pagination";
 import { EMOTION } from "@/commons/constants/enum";
 import Image from "next/image";
-import { useState } from "react";
+import React from "react";
 import { useDiaryWriteModal } from "./hooks/index.link.modal.hook";
 import { useBindingDiaries } from "./hooks/index.binding.hook";
 import { useLinkRoutingDiaries } from "./hooks/index.link.routing.hook";
 import { useSearchDiaries } from "./hooks/index.search.hook";
 import { useFilterDiaries } from "./hooks/index.filter.hook";
+import { usePagination } from "./hooks/index.pagination.hook";
 
 export default function Diaries() {
   const { openWriteModal } = useDiaryWriteModal();
@@ -35,10 +36,6 @@ export default function Diaries() {
     handleFilterChange,
   } = useFilterDiaries(diaries);
 
-  // 페이지네이션 상태 관리
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 12; // 4x3 그리드
-
   // 검색과 필터 결과를 결합하여 최종 데이터 결정
   const getFinalData = () => {
     // 검색 결과가 있으면 검색 결과에 필터 적용
@@ -52,35 +49,35 @@ export default function Diaries() {
   };
 
   const dataToUse = getFinalData();
-  const totalPages = Math.ceil(dataToUse.length / itemsPerPage);
+
+  // 페이지네이션 훅 사용
+  const {
+    currentPage,
+    totalPages,
+    currentPageData,
+    handlePageChange,
+    resetPagination,
+  } = usePagination({
+    data: dataToUse,
+    itemsPerPage: 12, // 4x3 그리드
+    initialPage: 1,
+  });
 
   // 검색 핸들러
   const handleSearch = (value: string) => {
     searchDiaries(value);
-    setCurrentPage(1); // 검색 시 첫 페이지로 이동
+    resetPagination(); // 검색 시 첫 페이지로 이동
   };
 
   // 필터 변경 핸들러
   const handleFilterChangeWrapper = (value: string | number) => {
     handleFilterChange(String(value));
-    setCurrentPage(1); // 필터 변경 시 첫 페이지로 이동
+    resetPagination(); // 필터 변경 시 첫 페이지로 이동
   };
 
   // 일기쓰기 버튼 핸들러 - 모달로 열기
   const handleWriteDiary = () => {
     openWriteModal();
-  };
-
-  // 페이지 변경 핸들러
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
-
-  // 현재 페이지에 표시할 일기 데이터 계산
-  const getCurrentPageDiaries = () => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    return dataToUse.slice(startIndex, endIndex);
   };
 
   return (
@@ -134,7 +131,7 @@ export default function Diaries() {
       <div className={styles.gap42}></div>
       <div className={styles.main}>
         {searchQuery && searchFilteredDiaries.length === 0 ? (
-          <div className={styles.noResults}>
+          <div className={styles.noResults} data-testid="no-results">
             <p>검색 결과가 없습니다.</p>
             <Button
               variant="secondary"
@@ -147,63 +144,79 @@ export default function Diaries() {
           </div>
         ) : (
           <div className={styles.diaryGrid}>
-            {getCurrentPageDiaries().map((diary) => (
-              <div
-                key={diary.id}
-                className={styles.diaryCard}
-                onClick={async () => await handleDiaryCardClick(diary.id)}
-                data-testid={`diary-card-${diary.id}`}
-              >
-                <div className={styles.cardImage}>
-                  <Image
-                    src={`/images/${EMOTION[
-                      diary.emotion
-                    ].images.medium.replace(".svg", ".png")}`}
-                    alt={EMOTION[diary.emotion].label}
-                    width={274}
-                    height={208}
-                    className={styles.image}
-                  />
-                  <div
-                    className={styles.closeIcon}
-                    onClick={handleDeleteIconClick}
-                  >
+            {currentPageData.map((diary: unknown) => {
+              const diaryData = diary as {
+                id: string;
+                emotion: string;
+                date: string;
+                title: string;
+              };
+              return (
+                <div
+                  key={diaryData.id}
+                  className={styles.diaryCard}
+                  onClick={async () => await handleDiaryCardClick(diaryData.id)}
+                  data-testid={`diary-card-${diaryData.id}`}
+                >
+                  <div className={styles.cardImage}>
                     <Image
-                      src="/icons/close_outline_light_m.svg"
-                      alt="닫기"
-                      width={24}
-                      height={24}
+                      src={`/images/${EMOTION[
+                        diaryData.emotion as keyof typeof EMOTION
+                      ].images.medium.replace(".svg", ".png")}`}
+                      alt={
+                        EMOTION[diaryData.emotion as keyof typeof EMOTION].label
+                      }
+                      width={274}
+                      height={208}
+                      className={styles.image}
                     />
-                  </div>
-                </div>
-                <div className={styles.cardContent}>
-                  <div className={styles.cardHeader}>
-                    <span
-                      className={styles.emotionText}
-                      style={{
-                        color: `var(--${EMOTION[diary.emotion].color})`,
-                      }}
-                      data-testid="emotion-text"
+                    <div
+                      className={styles.closeIcon}
+                      onClick={handleDeleteIconClick}
                     >
-                      {EMOTION[diary.emotion].label}
-                    </span>
-                    <span className={styles.dateText}>
-                      {new Date(diary.date)
-                        .toLocaleDateString("ko-KR", {
-                          year: "numeric",
-                          month: "2-digit",
-                          day: "2-digit",
-                        })
-                        .replace(/\./g, ". ")
-                        .replace(/\s+/g, " ")
-                        .trim()
-                        .replace(/\.$/, "")}
-                    </span>
+                      <Image
+                        src="/icons/close_outline_light_m.svg"
+                        alt="닫기"
+                        width={24}
+                        height={24}
+                      />
+                    </div>
                   </div>
-                  <div className={styles.cardTitle}>{diary.title}</div>
+                  <div className={styles.cardContent}>
+                    <div className={styles.cardHeader}>
+                      <span
+                        className={styles.emotionText}
+                        style={{
+                          color: `var(--${
+                            EMOTION[diaryData.emotion as keyof typeof EMOTION]
+                              .color
+                          })`,
+                        }}
+                        data-testid="emotion-text"
+                      >
+                        {
+                          EMOTION[diaryData.emotion as keyof typeof EMOTION]
+                            .label
+                        }
+                      </span>
+                      <span className={styles.dateText}>
+                        {new Date(diaryData.date)
+                          .toLocaleDateString("ko-KR", {
+                            year: "numeric",
+                            month: "2-digit",
+                            day: "2-digit",
+                          })
+                          .replace(/\./g, ". ")
+                          .replace(/\s+/g, " ")
+                          .trim()
+                          .replace(/\.$/, "")}
+                      </span>
+                    </div>
+                    <div className={styles.cardTitle}>{diaryData.title}</div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>
@@ -217,6 +230,7 @@ export default function Diaries() {
           size="medium"
           theme="light"
           className={styles.paginationComponent}
+          data-testid="pagination"
         />
       </div>
       <div className={styles.gap40}></div>

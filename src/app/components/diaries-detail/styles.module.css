@@ -239,3 +239,118 @@
   font-size: 14px;
   font-weight: var(--font-weight-regular);
 }
+
+/* 수정 모드 스타일 */
+.editEmotionSection {
+  background-color: var(--background);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.editEmotionLabel {
+  color: var(--foreground);
+  font-family: var(--font-korean);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.2px;
+  margin: 0 0 16px 0;
+}
+
+.emotionOptions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.emotionOption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.emotionRadio {
+  width: 24px;
+  height: 24px;
+  margin: 0;
+}
+
+.emotionLabel {
+  color: var(--foreground);
+  font-family: var(--font-korean);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.18px;
+}
+
+.editTitleSection,
+.editContentSection {
+  background-color: var(--background);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.editFieldLabel {
+  display: block;
+  color: var(--foreground);
+  font-family: var(--font-korean);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.14px;
+  margin-bottom: 8px;
+}
+
+.editTitleInput {
+  width: 100%;
+}
+
+.editContentTextarea {
+  width: 100%;
+  min-height: 128px;
+  padding: 16px;
+  border: 1px solid #d4d3d3;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: var(--foreground);
+  font-family: var(--font-korean);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+  resize: vertical;
+}
+
+.editContentTextarea:focus {
+  outline: none;
+  border-color: #000000;
+}
+
+.editButtonSection {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.editCancelButton {
+  width: 104px;
+  height: 48px;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.18px;
+  padding: 0;
+}
+
+.editSubmitButton {
+  width: 104px;
+  height: 48px;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.18px;
+  padding: 0;
+}

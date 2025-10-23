@@ -59,6 +59,11 @@ export interface PaginationProps {
    * 추가 CSS 클래스명
    */
   className?: string;
+
+  /**
+   * 테스트용 식별자
+   */
+  "data-testid"?: string;
 }
 
 /**
@@ -90,6 +95,7 @@ export const Pagination: React.FC<PaginationProps> = ({
   theme = "light",
   visiblePages = 5,
   className = "",
+  "data-testid": dataTestId,
 }) => {
   // 페이지 번호 범위 계산
   const getPageNumbers = (): number[] => {
@@ -164,6 +170,7 @@ export const Pagination: React.FC<PaginationProps> = ({
       className={containerClasses}
       role="navigation"
       aria-label="페이지네이션"
+      data-testid={dataTestId}
     >
       {/* 이전 페이지 버튼 */}
       <button
@@ -204,6 +211,7 @@ export const Pagination: React.FC<PaginationProps> = ({
               onClick={() => handlePageClick(page)}
               aria-label={`${page}페이지`}
               aria-current={isActive ? "page" : undefined}
+              data-testid={`page-number-${page}`}
             >
               {page}
             </button>
