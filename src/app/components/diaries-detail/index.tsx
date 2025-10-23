@@ -330,25 +330,31 @@ const DiariesDetail: React.FC<DiariesDetailProps> = ({ diaryId }) => {
 
       {/* Retrospect List 영역 */}
       <div className={styles.retrospectList}>
-        {retrospects.map((retrospect) => (
-          <div key={retrospect.id} className={styles.retrospectItem}>
-            <p className={styles.retrospectText}>{retrospect.content}</p>
-            <p className={styles.retrospectDate}>
-              [
-              {new Date(retrospect.createdAt)
-                .toLocaleDateString("ko-KR", {
-                  year: "numeric",
-                  month: "2-digit",
-                  day: "2-digit",
-                })
-                .replace(/\./g, ". ")
-                .replace(/\s+/g, " ")
-                .trim()
-                .replace(/\.$/, "")}
-              ]
-            </p>
+        {retrospects.length > 0 ? (
+          retrospects.map((retrospect) => (
+            <div key={retrospect.id} className={styles.retrospectItem}>
+              <p className={styles.retrospectText}>{retrospect.content}</p>
+              <p className={styles.retrospectDate}>
+                [
+                {new Date(retrospect.createdAt)
+                  .toLocaleDateString("ko-KR", {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                  })
+                  .replace(/\./g, ". ")
+                  .replace(/\s+/g, " ")
+                  .trim()
+                  .replace(/\.$/, "")}
+                ]
+              </p>
+            </div>
+          ))
+        ) : (
+          <div className={styles.noRetrospectMessage}>
+            등록된 회고가 없습니다.
           </div>
-        ))}
+        )}
       </div>
 
       {/* 삭제 모달 */}

@@ -361,3 +361,14 @@
   letter-spacing: -0.18px;
   padding: 0;
 }
+
+.noRetrospectMessage {
+  font-family: var(--font-korean);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+  color: #919191;
+  text-align: center;
+  padding: 40px 0;
+}
