@@ -12,6 +12,8 @@ import {
   RetrospectData,
 } from "./hooks/index.retrospect.form.hook";
 import { useDiaryUpdate, DiaryUpdateData } from "./hooks/index.update.hook";
+import { useDiaryDelete } from "./hooks/index.delete.hook";
+import { Modal } from "@/commons/components/modal";
 
 interface DiariesDetailProps {
   diaryId?: string;
@@ -44,6 +46,15 @@ const DiariesDetail: React.FC<DiariesDetailProps> = ({ diaryId }) => {
     cancelEditing,
     handleSubmit: handleUpdateSubmit,
   } = useDiaryUpdate(diaryId ? parseInt(diaryId) : 0, initialUpdateData);
+
+  // 일기 삭제 훅 사용
+  const {
+    isDeleting,
+    isModalOpen,
+    openDeleteModal,
+    closeDeleteModal,
+    handleDelete,
+  } = useDiaryDelete(diaryId ? parseInt(diaryId) : 0);
 
   // 로컬스토리지에서 회고 데이터 로드
   useEffect(() => {
@@ -89,9 +100,8 @@ const DiariesDetail: React.FC<DiariesDetailProps> = ({ diaryId }) => {
     startEditing();
   };
 
-  const handleDelete = () => {
-    // 삭제 기능 구현
-    console.log("삭제 버튼 클릭");
+  const handleDeleteClick = () => {
+    openDeleteModal();
   };
 
   // 폼 제출 핸들러
@@ -288,8 +298,9 @@ const DiariesDetail: React.FC<DiariesDetailProps> = ({ diaryId }) => {
           variant="secondary"
           size="medium"
           theme="light"
-          onClick={handleDelete}
+          onClick={handleDeleteClick}
           className={styles.deleteButton}
+          data-testid="delete-button"
         >
           삭제
         </Button>
@@ -344,6 +355,22 @@ const DiariesDetail: React.FC<DiariesDetailProps> = ({ diaryId }) => {
           </div>
         ))}
       </div>
+
+      {/* 삭제 모달 */}
+      {isModalOpen && (
+        <Modal
+          variant="danger"
+          actions="dual"
+          theme="light"
+          title="일기 삭제"
+          message="일기를 삭제 하시겠어요?"
+          confirmText="삭제"
+          cancelText="취소"
+          onConfirm={handleDelete}
+          onCancel={closeDeleteModal}
+          onClose={closeDeleteModal}
+        />
+      )}
     </div>
   );
 };

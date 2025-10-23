@@ -11,7 +11,7 @@
 
 ==============================================
 
-조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: nu8j0m9l)
+조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: h66f9lbu)
 조건-피그마) 구현될 컴포넌트 노드ID(삭제모달): 62:2635
 
 조건-파일경로) 참고할 TSX  파일경로: src/components/diaries-detail/index.tsx

@@ -14,12 +14,15 @@ import { useLinkRoutingDiaries } from "./hooks/index.link.routing.hook";
 import { useSearchDiaries } from "./hooks/index.search.hook";
 import { useFilterDiaries } from "./hooks/index.filter.hook";
 import { usePagination } from "./hooks/index.pagination.hook";
+import { useDeleteDiary } from "./hooks/index.delete.hook";
+import { useAuth } from "@/commons/providers/auth/auth.provider";
 
 export default function Diaries() {
   const { openWriteModal } = useDiaryWriteModal();
   const { diaries } = useBindingDiaries();
-  const { handleDiaryCardClick, handleDeleteIconClick } =
-    useLinkRoutingDiaries();
+  const { handleDiaryCardClick } = useLinkRoutingDiaries();
+  const { handleDeleteDiary } = useDeleteDiary();
+  const { isAuthenticated } = useAuth();
   const {
     searchQuery,
     filteredDiaries: searchFilteredDiaries,
@@ -170,17 +173,23 @@ export default function Diaries() {
                       height={208}
                       className={styles.image}
                     />
-                    <div
-                      className={styles.closeIcon}
-                      onClick={handleDeleteIconClick}
-                    >
-                      <Image
-                        src="/icons/close_outline_light_m.svg"
-                        alt="닫기"
-                        width={24}
-                        height={24}
-                      />
-                    </div>
+                    {isAuthenticated && (
+                      <div
+                        className={styles.closeIcon}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeleteDiary(Number(diaryData.id));
+                        }}
+                        data-testid={`delete-icon-${diaryData.id}`}
+                      >
+                        <Image
+                          src="/icons/close_outline_light_m.svg"
+                          alt="삭제"
+                          width={24}
+                          height={24}
+                        />
+                      </div>
+                    )}
                   </div>
                   <div className={styles.cardContent}>
                     <div className={styles.cardHeader}>
