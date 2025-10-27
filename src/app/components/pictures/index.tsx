@@ -19,7 +19,8 @@ import styles from "./styles.module.css";
  * - Filter 영역: 1168 x 48px
  * - SelectBox: 120 x 48px, cornerRadius: 8px, border: #c7c7c7
  * - Main 영역: 1168 x auto (1열 세로 배치)
- * - 이미지 카드: 640 x 640px, cornerRadius: 24px, gap: 40px
+ * - 이미지 카드: 640 x 640px (767px 이하: 280 x 280px), cornerRadius: 24px, gap: 40px
+ * - 브레이크포인트: 767px
  */
 export default function Pictures() {
   // 필터 기능 훅 사용
@@ -98,7 +99,14 @@ export default function Pictures() {
 
         {/* 에러 메시지 표시 */}
         {isError && (
-          <div className={styles.errorMessage} data-testid="error-message">
+          <div
+            className={styles.errorMessage}
+            style={{
+              width: `${imageSize.width}px`,
+              minHeight: `${imageSize.height}px`,
+            }}
+            data-testid="error-message"
+          >
             강아지 사진을 불러오는데 실패했습니다.
             <br />
             잠시 후 다시 시도해주세요.

@@ -21,16 +21,31 @@
   justify-content: space-between;
   width: 100%;
   height: 100%;
+  gap: 16px;
+}
+
+.filterWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.filterSelect {
+  width: 120px;
 }
 
 .searchWrapper {
   display: flex;
   align-items: center;
-  gap: 16px;
+  flex: 1;
 }
 
-.filterSelect {
-  width: 120px;
+.actionButtons {
+  display: flex;
+  align-items: center;
+}
+
+.actionButtons .filterSelectMobile {
+  display: none;
 }
 
 .searchInput {
@@ -49,32 +64,72 @@
 
 /* 반응형 디자인 - 767px 이하에서 search 영역 변경 */
 @media (max-width: 767px) {
+  .container {
+    max-width: 360px;
+    margin: 0 auto;
+  }
+
   .search {
     height: auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+    width: 100%;
   }
 
   .searchContent {
     flex-direction: column;
     gap: 16px;
     height: auto;
+    width: 100%;
   }
 
   .searchWrapper {
-    flex-direction: column;
     width: 100%;
-    gap: 8px;
-  }
-
-  .filterSelect {
-    width: 100%;
+    order: 1;
   }
 
   .searchInput {
     width: 100%;
   }
 
-  .writeButton {
+  .actionButtons {
+    display: flex;
+    flex-direction: row;
     width: 100%;
+    gap: 16px;
+    justify-content: space-between;
+    order: 2;
+  }
+
+  .filterWrapper {
+    display: none;
+  }
+
+  .filterSelect {
+    width: 102px;
+  }
+
+  .actionButtons .filterSelectMobile {
+    display: block !important;
+  }
+
+  .filterSelectMobile {
+    width: 102px;
+  }
+
+  .writeButton {
+    width: 103px;
+    height: 40px;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.16px;
+  }
+
+  .main {
+    max-width: 360px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
   }
 }
 
@@ -108,23 +163,7 @@
   }
 }
 
-/* 767px 브레이크포인트 - main 영역 반응형 */
-@media (max-width: 767px) {
-  .diaryGrid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .diaryCard {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .cardImage {
-    width: 100%;
-  }
-}
-
+/* 기본 카드 스타일 */
 .diaryCard {
   width: 274px;
   height: 296px;
@@ -217,6 +256,67 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* 767px 브레이크포인트 - main 영역 반응형 */
+@media (max-width: 767px) {
+  .diaryGrid {
+    grid-template-columns: repeat(2, 152px);
+    gap: 16px;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .diaryCard {
+    width: 152px;
+    max-width: 152px;
+    height: 192px;
+  }
+
+  .cardImage {
+    width: 152px;
+    height: 116px;
+  }
+
+  .cardContent {
+    padding: 12px;
+  }
+
+  .emotionText {
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: -0.12px;
+  }
+
+  .dateText {
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: -0.12px;
+  }
+
+  .cardTitle {
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: -0.14px;
+  }
+
+  .closeIcon {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .closeIcon svg,
+  .closeIcon img {
+    width: 18px;
+    height: 18px;
+  }
 }
 
 .gap40 {

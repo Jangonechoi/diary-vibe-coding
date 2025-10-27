@@ -89,7 +89,7 @@ export default function Diaries() {
     <div className={styles.container}>
       <div className={styles.search}>
         <div className={styles.searchContent}>
-          <div className={styles.searchWrapper}>
+          <div className={styles.filterWrapper}>
             <Selectbox
               variant="primary"
               size="medium"
@@ -101,6 +101,8 @@ export default function Diaries() {
               value={selectedFilter}
               data-testid="filter-select"
             />
+          </div>
+          <div className={styles.searchWrapper}>
             <Searchbar
               variant="primary"
               size="medium"
@@ -113,24 +115,37 @@ export default function Diaries() {
               data-testid="search-input"
             />
           </div>
-          <Button
-            variant="primary"
-            size="medium"
-            theme="light"
-            onClick={handleWriteDiary}
-            className={styles.writeButton}
-            leftIcon={
-              <Image
-                src="/icons/plus_outline_light_m.svg"
-                alt="일기쓰기"
-                width={16}
-                height={16}
-              />
-            }
-            data-testid="diary-write-button"
-          >
-            일기쓰기
-          </Button>
+          <div className={styles.actionButtons}>
+            <Selectbox
+              variant="primary"
+              size="medium"
+              theme="light"
+              placeholder="전체"
+              options={filterOptions}
+              onValueChange={handleFilterChangeWrapper}
+              className={styles.filterSelectMobile}
+              value={selectedFilter}
+              data-testid="filter-select-mobile"
+            />
+            <Button
+              variant="primary"
+              size="medium"
+              theme="light"
+              onClick={handleWriteDiary}
+              className={styles.writeButton}
+              leftIcon={
+                <Image
+                  src="/icons/plus_outline_light_m.svg"
+                  alt="일기쓰기"
+                  width={16}
+                  height={16}
+                />
+              }
+              data-testid="diary-write-button"
+            >
+              일기쓰기
+            </Button>
+          </div>
         </div>
       </div>
       <div className={styles.gap42}></div>
@@ -173,6 +188,7 @@ export default function Diaries() {
                       }
                       width={274}
                       height={208}
+                      sizes="(max-width: 767px) 152px, 274px"
                       className={styles.image}
                     />
                     {isAuthenticated && (

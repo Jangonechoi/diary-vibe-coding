@@ -176,3 +176,89 @@
   width: 104px;
   height: 48px;
 }
+
+/* 반응형 디자인 - 767px 이하 */
+@media (max-width: 767px) {
+  .wrapper {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    padding: 24px;
+    border-radius: 24px;
+  }
+
+  .header {
+    margin-bottom: 16px;
+  }
+
+  .headerTitle {
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.2px;
+  }
+
+  .gap {
+    height: 24px;
+  }
+
+  .gapSmall {
+    height: 16px;
+  }
+
+  .emotionBox {
+    margin-bottom: 24px;
+  }
+
+  .emotionContainer {
+    gap: 12px;
+  }
+
+  .emotionTitle {
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: -0.18px;
+  }
+
+  .emotionOptions {
+    gap: 12px;
+  }
+
+  .emotionRadio {
+    width: 20px;
+    height: 20px;
+  }
+
+  .emotionLabel {
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: -0.16px;
+  }
+
+  .inputTitle {
+    margin-bottom: 16px;
+  }
+
+  .inputContent {
+    margin-bottom: 24px;
+  }
+
+  .contentTextarea {
+    height: 128px;
+    padding: 16px;
+  }
+
+  .footerButtons {
+    display: flex;
+    gap: 16px;
+  }
+
+  .closeButton {
+    width: 80px;
+    height: 40px;
+  }
+
+  .submitButton {
+    width: 80px;
+    height: 40px;
+  }
+}
